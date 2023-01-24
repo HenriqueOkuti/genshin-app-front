@@ -1,21 +1,44 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
+import UserContext from './contexts/UserContext';
 import { OAuth } from './pages/Authentication/OAuth';
-import { Login, SignUp } from './pages/pages';
+import { LandingPage, Login, SignUp } from './pages/pages';
 
 export default function App() {
+  const token = localStorage.getItem('token');
+  const [userToken, setUserToken] = useState(token);
+
   return (
     <>
       <ToastContainer />
-      <Router>
-        <Routes>
-          <Route path="/" element={<></>} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/OAuth" element={<OAuth />} />
-          <Route path="/dashboard" element={<>Dashboard</>} />
-        </Routes>
-      </Router>
+      <UserContext.Provider value={{ userToken, setUserToken }}>
+        <Router>
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/OAuth" element={<OAuth />} />
+            <Route
+              path="/dashboard"
+              element={
+                <PrivateRoute>
+                  <>Dashboard</>
+                </PrivateRoute>
+              }
+            />
+          </Routes>
+        </Router>
+      </UserContext.Provider>
     </>
   );
+}
+
+function PrivateRoute({ children }) {
+  const token = localStorage.getItem('token');
+  if (!token) {
+    return <Navigate to="/login" />;
+  }
+
+  return <>{children}</>;
 }
