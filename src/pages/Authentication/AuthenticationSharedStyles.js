@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Title = styled.div`
-  font-family: 'Inter';
+  font-family: 'Inter', arial;
   font-style: normal;
   font-weight: 400;
   font-size: 42px;
@@ -22,7 +22,7 @@ export const Title = styled.div`
 `;
 
 export const Subtitle = styled.div`
-  font-family: 'Inter';
+  font-family: 'Inter', arial;
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -81,7 +81,7 @@ export const DividerLineContainer = styled.div`
 `;
 
 export const DividerText = styled.div`
-  font-family: 'Inter';
+  font-family: 'Inter', arial;
   font-style: normal;
   font-weight: 400;
   font-size: 20px;
@@ -124,7 +124,7 @@ export const AuthenticationForms = styled.form`
 `;
 
 export const AuthenticationFormsText = styled.div`
-  font-family: 'Inter';
+  font-family: 'Inter', arial;
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -155,7 +155,7 @@ export const AuthenticationButtom = styled.div`
   margin-bottom: 20px !important;
 
   p {
-    font-family: 'Inter';
+    font-family: 'Inter', arial;
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
@@ -171,7 +171,7 @@ export const AuthenticationButtom = styled.div`
 `;
 
 export const RedirectAuth = styled.div`
-  font-family: 'Inter';
+  font-family: 'Inter', arial;
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -198,7 +198,7 @@ export const OAuthLoader = styled.div`
   justify-content: center;
 
   p {
-    font-family: 'Inter';
+    font-family: 'Inter', arial;
     font-style: normal;
     font-weight: 400;
     font-size: 20px;

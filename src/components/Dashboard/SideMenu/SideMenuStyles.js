@@ -8,7 +8,7 @@ export const OptionsContainer = styled.div`
   flex-direction: column;
   align-items: center;
 
-  font-family: 'Inter';
+  font-family: 'Inter', arial;
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -18,7 +18,9 @@ export const OptionsContainer = styled.div`
 
   color: #000000;
 
-  overflow-y: scroll;
+  @media (max-height: 790px) {
+    overflow-y: scroll;
+  }
 `;
 
 export const UserContainer = styled.div`
@@ -53,6 +55,13 @@ export const ButtonsContainer = styled.div`
 
   > .MuiButton-root {
     margin-bottom: 10px;
+    font-family: 'Inter', arial !important;
+    color: #000000 !important;
+    background-color: inherit !important;
+
+    @media (max-width: 700px) {
+      min-width: 250px !important;
+    }
   }
 `;
 
@@ -82,4 +91,9 @@ export const ExitContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  p {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
 `;

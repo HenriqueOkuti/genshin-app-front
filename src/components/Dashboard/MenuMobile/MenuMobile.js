@@ -53,10 +53,6 @@ export function MobileMenu({ update, setUpdate, colors, userData, theme, setThem
             anchorEl={anchorEl}
             open={open}
             onClose={handleClose}
-            anchorOrigin={{
-              vertical: 'top',
-              horizontal: 'left',
-            }}
             transformOrigin={{
               vertical: 'top',
               horizontal: 'left',

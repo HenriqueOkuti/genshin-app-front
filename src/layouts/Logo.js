@@ -21,7 +21,7 @@ const LogoContainer = styled.div`
   justify-content: center;
 
   div {
-    font-family: 'Iceberg';
+    font-family: 'Iceberg', arial;
     font-size: 48px;
     text-align: center;
     text-decoration: underline;
@@ -29,7 +29,7 @@ const LogoContainer = styled.div`
 
   p {
     margin-top: 20px;
-    font-family: 'Inter';
+    font-family: 'Inter', arial;
     font-size: 18px;
     text-align: center;
   }
