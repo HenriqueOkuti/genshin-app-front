@@ -1,11 +1,11 @@
 import { useNavigate } from 'react-router-dom';
-import { AuthContainer } from '../../layouts/AuthenticationContainer';
-import { Background } from '../../layouts/Background';
-import { Logo } from '../../layouts/Logo';
-import { Subtitle, Title } from './AuthenticationSharedStyles';
+import { AuthContainer, Background, Logo } from '../../layouts/layouts';
+import { OAuthLoader, Subtitle, Title } from './AuthenticationSharedStyles';
 import qs from 'query-string';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import LinearProgress from '@mui/material/LinearProgress';
+import Box from '@mui/material/Box';
 
 export function OAuth() {
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ export function OAuth() {
   }, [update]);
 
   if (token) {
-    navigate('/dashboard');
+    navigate('/dashboard/home');
   }
 
   if (!code) {
@@ -38,7 +38,14 @@ export function OAuth() {
       </Background>
       <AuthContainer>
         <Title>Login</Title>
-        <Subtitle>Just a quick second</Subtitle>
+
+        <OAuthLoader>
+          <p>Loading</p>
+          <Box sx={{ width: '100%' }}>
+            <LinearProgress color="success" />
+          </Box>
+          <p>Just finishing a few touches</p>
+        </OAuthLoader>
       </AuthContainer>
     </>
   );

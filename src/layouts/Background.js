@@ -5,6 +5,6 @@ export const Background = styled.div`
   height: 100vh;
   width: 100vw;
 
-  background-color: #6c517e;
+  background-color: ${(props) => (props.colors ? props.colors.hex3 : '#66527B')};
   z-index: -1;
 `;

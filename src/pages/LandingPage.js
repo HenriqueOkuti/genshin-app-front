@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import UserContext from '../contexts/UserContext';
-import { Background } from '../layouts/Background';
+import { Background } from '../layouts/layouts';
 import Loader from 'react-loader-spinner';
 import styled from 'styled-components';
 
@@ -18,7 +18,7 @@ export function LandingPage() {
 
   useEffect(() => {
     if (token) {
-      navigate('/dashboard');
+      navigate('/dashboard/home');
     } else {
       navigate('/login');
     }

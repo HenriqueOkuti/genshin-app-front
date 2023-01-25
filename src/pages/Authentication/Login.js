@@ -1,9 +1,7 @@
 import { TextField } from '@material-ui/core';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AuthContainer } from '../../layouts/AuthenticationContainer';
-import { Background } from '../../layouts/Background';
-import { Logo } from '../../layouts/Logo';
+import { AuthContainer, Background, Logo } from '../../layouts/layouts';
 import qs from 'query-string';
 import {
   AuthenticationButtom,
@@ -35,7 +33,7 @@ export function Login() {
   }, []);
 
   if (token) {
-    navigate('/dashboard');
+    navigate('/dashboard/home');
   }
 
   return (
@@ -155,7 +153,7 @@ async function handleAuthentication(userData, navigate) {
   if (response.token) {
     localStorage.setItem('token', response.token);
     toast('Successful login');
-    navigate('/dashboard');
+    navigate('/dashboard/home');
   }
   if (response.message === 'Request failed with status code 401') {
     toast('Verify your credentials');

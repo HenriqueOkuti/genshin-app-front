@@ -4,8 +4,8 @@ export function Logo() {
   return (
     <>
       <LogoContainer>
-        <div>Logo</div>
-        <div>Less time planning. More time playing.</div>
+        <div>Genshin Task Manager</div>
+        <p>Less time planning. More time playing.</p>
       </LogoContainer>
     </>
   );
@@ -19,4 +19,18 @@ const LogoContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  div {
+    font-family: 'Iceberg';
+    font-size: 48px;
+    text-align: center;
+    text-decoration: underline;
+  }
+
+  p {
+    margin-top: 20px;
+    font-family: 'Inter';
+    font-size: 18px;
+    text-align: center;
+  }
 `;

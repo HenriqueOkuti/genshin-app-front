@@ -188,3 +188,27 @@ export const RedirectAuth = styled.div`
     color: #81b2c6;
   }
 `;
+
+export const OAuthLoader = styled.div`
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  p {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 19px;
+    display: flex;
+    align-items: center;
+
+    color: #929292;
+
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    margin: 25px 0 25px 0;
+  }
+`;

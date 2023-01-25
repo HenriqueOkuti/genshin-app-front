@@ -2,9 +2,7 @@ import { TextField } from '@material-ui/core';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { AuthContainer } from '../../layouts/AuthenticationContainer';
-import { Background } from '../../layouts/Background';
-import { Logo } from '../../layouts/Logo';
+import { AuthContainer, Background, Logo } from '../../layouts/layouts';
 import { signUpUser } from '../../services/services';
 import {
   AuthenticationButtom,
