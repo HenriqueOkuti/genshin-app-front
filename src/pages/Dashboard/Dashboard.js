@@ -12,6 +12,7 @@ import { SideMenu, MobileMenu } from '../../components/components';
 import { useTheme } from '../../hooks/useTheme';
 import useToken from '../../hooks/useToken';
 import { getUser } from '../../services/services';
+import { ContentMenu } from '../../components/Dashboard/ContentMenu/ContentMenu';
 
 export function Dashboard() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -25,6 +26,7 @@ export function Dashboard() {
     email: 'default@mail.com',
     image: 'https://d16u9y6cg00afk.cloudfront.net/Genshin_Impact_Official_Chibi/966410.512.webp',
   });
+  const [forceUpdate, setForceUpdate] = useState(false);
 
   if (!token) {
     setToken(localStorage.getItem('token'));
@@ -32,7 +34,7 @@ export function Dashboard() {
 
   useEffect(() => {
     setTheme(userTheme);
-  }, [update]);
+  }, [update, forceUpdate]);
 
   // eslint-disable-next-line space-before-function-paren
   useEffect(async () => {
@@ -61,9 +63,11 @@ export function Dashboard() {
             <SideMenu update={update} setUpdate={setUpdate} userData={userData} />
           </SideMenuContainer>
           <MainMenuContainer colors={theme.palette}>
-            <ContentContainer>
-              <Outlet />
-            </ContentContainer>
+            <ContentMenu
+              update={update}
+              setUpdate={setUpdate}
+              children={<Outlet setUpdate={setUpdate} forceUpdate={forceUpdate} />}
+            ></ContentMenu>
           </MainMenuContainer>
         </DashboardContainer>
       </PageContainer>

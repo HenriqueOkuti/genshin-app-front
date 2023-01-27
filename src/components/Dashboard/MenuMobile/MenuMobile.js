@@ -16,6 +16,10 @@ import { useNavigate } from 'react-router-dom';
 import { useTheme } from 'styled-components';
 import { useSetTheme } from '../../../hooks/useTheme';
 import { DefaultThemes } from '../../../assets/themes/Themes';
+import { styled } from '@mui/material/styles';
+import { AiOutlineMenu } from 'react-icons/ai';
+
+//AiOutlineMenu
 
 export function MobileMenu({ update, setUpdate, colors, userData, theme, setTheme }) {
   const navigate = useNavigate();
@@ -30,6 +34,20 @@ export function MobileMenu({ update, setUpdate, colors, userData, theme, setThem
     setAnchorEl(null);
   };
 
+  const CustomMenu = styled(Menu)(({ theme }) => ({
+    color: '#ffffff',
+    fontFamily: ['Inter'],
+
+    div: {
+      borderRadius: '20px',
+      overflow: 'hidden',
+    },
+    ul: {
+      backgroundColor: colors ? colors.hex6 : 'inherit',
+      borderRadius: '20px',
+    },
+  }));
+
   return (
     <>
       <MobileHeader colors={colors}>
@@ -43,11 +61,18 @@ export function MobileMenu({ update, setUpdate, colors, userData, theme, setThem
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
             onClick={handleClick}
-            sx={{ listbox: { backgroundColor: '#000000' }, color: '#000000', width: 120 }}
+            sx={{
+              listbox: { backgroundColor: '#000000' },
+              color: '#000000',
+              width: 120,
+              p: { fontSize: 29, display: 'flex', alignItems: 'center', justifyContent: 'center' },
+            }}
           >
-            Mobile Menu
+            <p>
+              <AiOutlineMenu />
+            </p>
           </Button>
-          <Menu
+          <CustomMenu
             id="demo-positioned-menu"
             aria-labelledby="demo-positioned-button"
             anchorEl={anchorEl}
@@ -57,6 +82,7 @@ export function MobileMenu({ update, setUpdate, colors, userData, theme, setThem
               vertical: 'top',
               horizontal: 'left',
             }}
+            sx={{ div: { color: 'black' } }}
           >
             <ButtonsContainer>
               <Button
@@ -110,6 +136,7 @@ export function MobileMenu({ update, setUpdate, colors, userData, theme, setThem
             </ThemesContainer>
             <ExitContainer>
               <Button
+                sx={{ color: '#000000' }}
                 onClick={() => {
                   logout(navigate);
                   handleClose();
@@ -118,7 +145,7 @@ export function MobileMenu({ update, setUpdate, colors, userData, theme, setThem
                 <p>Exit</p>
               </Button>
             </ExitContainer>
-          </Menu>
+          </CustomMenu>
         </div>
       </MobileHeader>
     </>

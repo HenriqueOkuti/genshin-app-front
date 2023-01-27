@@ -36,4 +36,8 @@ export const MainMenuContainer = styled.div`
   border-radius: 0 20px 20px 0;
 `;
 
-export const ContentContainer = styled.div``;
+export const ContentContainer = styled.div`
+  margin: 7% 6% 8% 6%;
+  height: 85%;
+  width: 88%;
+`;
