@@ -19,9 +19,11 @@ import {
   Title,
 } from './AuthenticationSharedStyles';
 import { loginUser } from '../../services/Authentication/authenticationAPI';
+import { useWindowWidth } from '../../hooks/useWindowWidth';
 import { toast } from 'react-toastify';
 
 export function Login() {
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const navigate = useNavigate();
   const [token, setToken] = useState(null);
 
@@ -36,12 +38,18 @@ export function Login() {
     navigate('/dashboard/home');
   }
 
+  //Handles width of screen
+  useEffect(() => {
+    useWindowWidth(setWindowWidth);
+  }, []);
+
   return (
     <>
       <Background>
         <Logo />
       </Background>
       <AuthContainer>
+        {windowWidth < 700 ? <Logo /> : <></>}
         <Title>Login</Title>
         <Subtitle>Enter your credentials to access your account</Subtitle>
         <OAuthContainer>

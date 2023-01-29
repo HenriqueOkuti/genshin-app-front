@@ -18,10 +18,6 @@ export const MobileHeader = styled.div`
   > div {
     margin: 0 40px 0 40px;
   }
-
-  > .css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper {
-    background: ${(props) => props.colors.hex6} !important;
-  }
 `;
 
 export const MobilePageContainer = styled.div`
@@ -42,5 +38,5 @@ export const MobileContentContainer = styled.div`
   background: ${(props) => props.colors.hex6};
   border-radius: 20px;
 
-  overflow-y: scroll;
+  overflow-y: hidden;
 `;

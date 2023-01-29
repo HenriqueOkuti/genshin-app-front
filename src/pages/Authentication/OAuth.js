@@ -6,12 +6,15 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import LinearProgress from '@mui/material/LinearProgress';
 import Box from '@mui/material/Box';
+import { useWindowWidth } from '../../hooks/useWindowWidth';
+import { toast } from 'react-toastify';
 
 export function OAuth() {
   const navigate = useNavigate();
   const { code } = qs.parseUrl(window.location.href).query;
   const [token, setToken] = useState(null);
   const [update, setUpdate] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   useEffect(() => {
     setToken(localStorage.getItem('token'));
@@ -25,10 +28,24 @@ export function OAuth() {
     navigate('/login');
   }
 
-  useEffect(() => {
+  // eslint-disable-next-line space-before-function-paren
+  useEffect(async () => {
     if (code) {
-      fetchUserInfo(code, setUpdate, update);
+      const response = await fetchUserInfo(code, setUpdate, update);
+      if (!response) {
+        const hasToken = localStorage.getItem('token');
+        if (!hasToken) {
+          toast('Login unsuccesful');
+        }
+
+        navigate('/login');
+      }
     }
+  }, []);
+
+  //Handles width of screen
+  useEffect(() => {
+    useWindowWidth(setWindowWidth);
   }, []);
 
   return (
@@ -37,8 +54,7 @@ export function OAuth() {
         <Logo />
       </Background>
       <AuthContainer>
-        <Title>Login</Title>
-
+        {windowWidth < 700 ? <Logo /> : <></>}
         <OAuthLoader>
           <p>Loading</p>
           <Box sx={{ width: '100%' }}>
@@ -52,7 +68,16 @@ export function OAuth() {
 }
 
 async function fetchUserInfo(code, setUpdate, update) {
-  const response = await axios.post('http://localhost:4000/auth/github', { githubCode: code }, {});
+  const response = await axios.post('http://localhost:4000/auth/github', { githubCode: code }, {}).catch((err) => {
+    return err.toJSON();
+  });
+
+  //console.log(response);
+
+  if (response.message) {
+    return false;
+  }
+
   const token = response.data.token;
   if (token) {
     localStorage.setItem('token', token);

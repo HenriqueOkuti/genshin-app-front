@@ -5,6 +5,9 @@ export const Background = styled.div`
   height: 100vh;
   width: 100vw;
 
+  background: ${(props) =>
+    props.colors ? 'none' : `url(${'https://wallpapercave.com/wp/wp10519849.jpg'}) no-repeat fixed center`};
   background-color: ${(props) => (props.colors ? props.colors.hex3 : '#66527B')};
+
   z-index: -1;
 `;

@@ -25,13 +25,14 @@ export const DashboardContainer = styled.div`
 export const SideMenuContainer = styled.div`
   height: 100%;
   width: 30%;
+  max-width: 300px;
   background: ${(props) => props.colors.hex6};
   border-radius: 20px 0 0 20px;
 `;
 
 export const MainMenuContainer = styled.div`
   height: 100%;
-  width: 70%;
+  width: 100%;
   background: ${(props) => props.colors.hex5};
   border-radius: 0 20px 20px 0;
 `;

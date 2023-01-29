@@ -147,7 +147,7 @@ export const AuthenticationButtom = styled.div`
 
   height: 60px;
 
-  background: #996cc9;
+  background: #1f3265;
   border: 1px solid #e0e0e0;
   border-radius: 10px;
 
@@ -157,14 +157,14 @@ export const AuthenticationButtom = styled.div`
   p {
     font-family: 'Inter', arial;
     font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
+    font-weight: 500;
+    font-size: 20px;
     line-height: 19px;
     display: flex;
     align-items: center;
     text-align: center;
 
-    color: #000000;
+    color: #ffffff;
 
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   }

@@ -1,7 +1,8 @@
 import { TextField } from '@material-ui/core';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { useWindowWidth } from '../../hooks/useWindowWidth';
 import { AuthContainer, Background, Logo } from '../../layouts/layouts';
 import { signUpUser } from '../../services/services';
 import {
@@ -14,6 +15,7 @@ import {
 } from './AuthenticationSharedStyles';
 
 export function SignUp() {
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [validInput, setValidInput] = useState(true);
   const [sendingRequest, setSendingRequest] = useState(false);
   const [userData, setUserData] = useState({
@@ -24,12 +26,18 @@ export function SignUp() {
   });
   const navigate = useNavigate();
 
+  //Handles width of screen
+  useEffect(() => {
+    useWindowWidth(setWindowWidth);
+  }, []);
+
   return (
     <>
       <Background>
         <Logo />
       </Background>
       <AuthContainer>
+        {windowWidth < 700 ? <Logo /> : <></>}
         <Title>Sign up</Title>
         <Subtitle>Enter your credentials to create your account</Subtitle>
         <div>

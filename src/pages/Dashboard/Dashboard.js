@@ -13,6 +13,7 @@ import { useTheme } from '../../hooks/useTheme';
 import useToken from '../../hooks/useToken';
 import { getUser } from '../../services/services';
 import { ContentMenu } from '../../components/Dashboard/ContentMenu/ContentMenu';
+import { useWindowWidth } from '../../hooks/useWindowWidth';
 
 export function Dashboard() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -48,11 +49,7 @@ export function Dashboard() {
 
   //Handles width of screen
   useEffect(() => {
-    const handleResizeWindow = () => setWindowWidth(window.innerWidth);
-    window.addEventListener('resize', handleResizeWindow);
-    return () => {
-      window.removeEventListener('resize', handleResizeWindow);
-    };
+    useWindowWidth(setWindowWidth);
   }, []);
 
   if (windowWidth > 700) {
