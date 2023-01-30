@@ -6,7 +6,7 @@ import ThemeContext from './contexts/ThemeContext';
 import UserContext from './contexts/UserContext';
 import { Background } from './layouts/layouts';
 import { OAuth } from './pages/Authentication/OAuth';
-import { Characters } from './pages/Dashboard/Characters/Characters';
+import { CharactersManager } from './pages/Dashboard/Characters/Characters';
 import { Home } from './pages/Dashboard/Home/home';
 import { Dashboard, LandingPage, Login, SignUp } from './pages/pages';
 
@@ -55,7 +55,7 @@ export default function App() {
                   >
                     <Route path="profile" element={<>Profile</>} />
                     <Route path="home" element={<>Profile</>} />
-                    <Route path="characters" element={<Characters />} />
+                    <Route path="characters" element={<CharactersManager />} />
                     <Route path="backpack" element={<>Backpack</>} />
                     <Route path="tasks" element={<>Tasks</>} />
                     <Route index path="*" element={<Navigate to="/dashboard/home" />} />

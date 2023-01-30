@@ -1,8 +1,11 @@
 import styled from 'styled-components';
 
 export const AuxContainer = styled.div`
-  height: 100%;
-  overflow-y: hidden;
+  position: relative;
+  height: 90%;
+
+  overflow-y: scroll;
+
   padding-top: 10px;
   margin: 0 5% 5% 5%;
 `;
@@ -63,8 +66,8 @@ export const CharactersList = styled.div`
   justify-items: center;
   align-items: center;
 
-  gap: 10px;
-
+  gap: 5px;
+  margin: 15px 0 5% 0;
   height: 80%;
   overflow-y: scroll;
 
@@ -91,6 +94,7 @@ export const CharacterCard = styled.div`
 
   border: 1px solid black;
   border-radius: 5px;
+  width: 110px;
 `;
 
 export const CardName = styled.div`
@@ -126,6 +130,7 @@ export const CardInfo = styled.div`
 
 export const DropdownAnchor = styled.div`
   position: relative;
+  z-index: 1;
 
   > div {
     margin-left: 20px;
@@ -134,6 +139,7 @@ export const DropdownAnchor = styled.div`
 
 export const Dropdown = styled.div`
   position: absolute;
+  z-index: 500;
 
   top: 20px;
   right: 0px;
@@ -152,4 +158,259 @@ export const Dropdown = styled.div`
     font-size: 24px;
     height: 40px;
   }
+`;
+
+export const RenderAddCharacterContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  overflow-y: scroll;
+`;
+
+export const SendUserCharacter = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  background-color: ${(props) => (props.allowed ? '#4BB543' : '#D11A2A')};
+  border-radius: 20px;
+  height: 60px;
+  width: 100%;
+  font-size: 20px;
+  font-family: 'Inter', arial;
+`;
+
+export const AddCharacterContainer = styled.div`
+  font-family: 'Inter', arial;
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const AddCharacterImage = styled.div`
+  width: 50%;
+
+  img {
+    max-width: 100%;
+    min-width: 100%;
+    min-height: 400px;
+    max-height: 400px;
+    background-color: ${(props) => (props.color ? props.color : 'none')};
+    object-fit: contain;
+
+    border-radius: 15px;
+  }
+`;
+
+export const PromptContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  margin-left: 20px;
+
+  input {
+    height: 30px;
+    line-height: 16px;
+    padding: 8px 32px 8px 8px;
+    color: #000000;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    border-radius: 4px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    cursor: pointer;
+    text-align: center;
+  }
+`;
+
+export const TalentsContainer = styled.div`
+  > p {
+    margin: 0 0 15px 0;
+    font-size: 22px;
+  }
+`;
+
+export const IndividualTalent = styled.div``;
+
+export const TalentInfo = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin: 10px 0 10px 0;
+
+  img {
+    height: 50px;
+    width: 50px;
+    background-color: ${(props) => (props.color ? props.color : 'none')};
+  }
+
+  p {
+    width: calc(70% - 60px);
+    margin-left: 5px;
+  }
+
+  div {
+    width: calc(50% - 60px);
+    margin-left: 15px;
+  }
+`;
+
+export const MiscInputContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+
+  margin-top: 5px;
+  margin-bottom: 5px;
+
+  div {
+    font-size: 22px;
+    margin-right: 15px;
+    width: 80%;
+  }
+  input {
+    width: 20%;
+  }
+`;
+
+export const EditCharacterOuterContainer = styled.div`
+  width: 90%;
+  padding: 0 5% 5% 5%;
+  min-height: 400px;
+  height: 35vh;
+`;
+
+export const EditCharacterContainer = styled.div`
+  width: 100%;
+  height: 400px;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+
+  font-family: 'Inter', arial;
+
+  margin-top: 10px;
+`;
+
+export const EditCharacterImage = styled.div`
+  width: 50%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+
+  > * {
+    display: flex;
+    background-color: ${(props) => (props.color ? props.color : 'none')};
+    min-height: 400px;
+    max-height: 40px !important;
+    border-radius: 15px;
+    object-fit: cover;
+    mix-blend-mode: multiply;
+    height: 50%;
+    max-width: 75%;
+    max-height: 50%;
+    width: 75%;
+  }
+`;
+
+export const EditForms = styled.div`
+  max-width: 50%;
+  min-width: 50%;
+
+  max-height: 100%;
+  min-height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+
+  margin-left: 20px;
+
+  input {
+    height: 30px;
+    line-height: 16px;
+    padding: 8px 32px 8px 8px;
+    color: #000000;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    border-radius: 4px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    cursor: pointer;
+    text-align: center;
+  }
+`;
+
+export const TalentsTitle = styled.div`
+  margin: 0 0 15px 0;
+  font-size: 22px;
+`;
+
+export const EditButtonsContainer = styled.div`
+  height: 75px;
+
+  display: grid;
+  grid-template-columns: 50% 50%;
+  align-items: center;
+  justify-items: center;
+
+  > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 22px;
+
+    height: 100%;
+    width: 50%;
+    border-radius: 25px;
+    border: 1px solid #7c7a7a;
+    -webkit-box-shadow: -4px 2px 16px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: -4px 2px 16px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: -4px 2px 16px 0px rgba(0, 0, 0, 0.75);
+  }
+`;
+
+export const EditDeleteButton = styled.div`
+  background-color: #ff5d73;
+`;
+
+export const EditModifyButton = styled.div`
+  background-color: ${(props) => (props.color ? '#4bb543' : '#c7d6d5')};
+`;
+
+export const AddButtonContainer = styled.div`
+  height: 75px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 22px;
+
+    height: 100%;
+    width: 50%;
+    border-radius: 25px;
+    border: 1px solid #7c7a7a;
+    -webkit-box-shadow: -4px 2px 16px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: -4px 2px 16px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: -4px 2px 16px 0px rgba(0, 0, 0, 0.75);
+  }
+`;
+
+export const AddInsertButton = styled.div`
+  background-color: ${(props) => (props.color ? '#4bb543' : '#c7d6d5')};
 `;
