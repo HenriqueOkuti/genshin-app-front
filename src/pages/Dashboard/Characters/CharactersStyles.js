@@ -311,6 +311,7 @@ export const EditCharacterImage = styled.div`
     max-height: 40px !important;
     border-radius: 15px;
     object-fit: cover;
+    object-position: top;
     mix-blend-mode: multiply;
     height: 50%;
     max-width: 75%;
