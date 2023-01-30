@@ -275,7 +275,7 @@ function verifyData(userCharData) {
     return false;
   }
 
-  if (!userCharData.constellations || userCharData.constellations < 0 || userCharData.constellations > 6) {
+  if (userCharData.constellations < 0 || userCharData.constellations > 6) {
     return false;
   }
 

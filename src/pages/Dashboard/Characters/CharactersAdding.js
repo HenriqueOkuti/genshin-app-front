@@ -59,8 +59,6 @@ export function CharAddingMain({ characterToAdd, setCharacterToAdd, setPageState
   const characterKey = characterToAdd.name.toLowerCase().replace(' ', '_').replace('(', '').replace(')', '');
   const charTalentsImages = allTalentsImage[characterKey];
 
-  console.log(userCharData);
-
   return (
     <>
       <AuxContainer>
@@ -213,13 +211,13 @@ export function CharAddingMain({ characterToAdd, setCharacterToAdd, setPageState
             color={enabled}
             onClick={() => {
               if (enabled) {
-                console.log('modify');
+                console.log('add');
               }
               //setCharacterToAdd(null);
               //setPageState('initial');
             }}
           >
-            Modify
+            Add
           </AddInsertButton>
         </AddButtonContainer>
       </AuxContainer>
@@ -261,7 +259,7 @@ function verifyData(userCharData) {
     return false;
   }
 
-  if (!userCharData.constellations || userCharData.constellations < 0 || userCharData.constellations > 6) {
+  if (userCharData.constellations < 0 || userCharData.constellations > 6) {
     return false;
   }
 
