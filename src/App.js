@@ -9,6 +9,7 @@ import { OAuth } from './pages/Authentication/OAuth';
 import { CharactersManager } from './pages/Dashboard/Characters/Characters';
 import { Home } from './pages/Dashboard/Home/Home';
 import { ProfileManager } from './pages/Dashboard/Profile/Profile';
+import { TasksManager } from './pages/Dashboard/Tasks/Tasks';
 import { Dashboard, LandingPage, Login, SignUp } from './pages/pages';
 
 export default function App() {
@@ -58,7 +59,7 @@ export default function App() {
                     <Route path="home" element={<>Home</>} />
                     <Route path="characters" element={<CharactersManager />} />
                     <Route path="backpack" element={<>Backpack</>} />
-                    <Route path="tasks" element={<>Tasks</>} />
+                    <Route path="tasks" element={<TasksManager />} />
                     <Route index path="*" element={<Navigate to="/dashboard/home" />} />
                   </Route>
                 </Routes>
