@@ -82,7 +82,7 @@ export function Dashboard() {
           setTheme={setTheme}
         />
         <MobileContentContainer colors={theme.palette}>
-          <Outlet />
+          <Outlet context={[forceUpdate, setForceUpdate]} />
         </MobileContentContainer>
       </MobilePageContainer>
     </>

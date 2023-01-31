@@ -17,7 +17,8 @@ export function ProfileManager() {
     image: 'https://giffiles.alphacoders.com/214/214140.gif',
   });
 
-  console.log(forceUpdate, setForceUpdate);
+  //console.log('use this to update profile');
+  //console.log(forceUpdate, setForceUpdate);
 
   if (!token) {
     setToken(localStorage.getItem('token'));
