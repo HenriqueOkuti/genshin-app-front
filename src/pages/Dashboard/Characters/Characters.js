@@ -69,7 +69,7 @@ export function CharactersManager() {
         setMissingCharsDict({ ...missing[1] });
       });
     });
-  }, [updateList, fetchAgain]);
+  }, [updateList, fetchAgain, pageState]);
 
   useEffect(async () => {
     let auxToken = token ? token : localStorage.getItem('token');

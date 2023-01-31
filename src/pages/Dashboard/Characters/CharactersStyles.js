@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const AuxContainer = styled.div`
   position: relative;
-  height: 90%;
+  height: 95%;
 
   overflow-y: scroll;
 
@@ -63,7 +63,7 @@ export const CharactersList = styled.div`
 
   grid-template-columns: repeat(${(props) => (props.width ? Math.floor(props.width / 275) : 3)}, 1fr);
   justify-items: center;
-  align-items: center;
+  align-items: self-start;
 
   gap: 5px;
   margin: 15px 0 5% 0;
@@ -226,6 +226,7 @@ export const PromptContainer = styled.div`
 `;
 
 export const TalentsContainer = styled.div`
+  width: 100%;
   > p {
     margin: 0 0 15px 0;
     font-size: 22px;
@@ -254,7 +255,7 @@ export const TalentInfo = styled.div`
   }
 
   div {
-    width: calc(50% - 60px);
+    //width: calc(50% - 60px);
     margin-left: 15px;
   }
 `;
@@ -262,18 +263,22 @@ export const TalentInfo = styled.div`
 export const MiscInputContainer = styled.div`
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
   width: 100%;
 
   margin-top: 5px;
   margin-bottom: 5px;
+  font-size: 22px;
+  margin-right: 15px;
 
   div {
-    font-size: 22px;
-    margin-right: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
     width: 80%;
   }
   input {
+    display: flex;
     width: 20%;
   }
 `;
@@ -335,9 +340,10 @@ export const EditForms = styled.div`
   margin-left: 20px;
 
   input {
+    width: 40px;
     height: 30px;
     line-height: 16px;
-    padding: 8px 32px 8px 8px;
+    padding: 8px 16px 8px 16px;
     color: #000000;
     background-color: #fff;
     border: 1px solid rgba(0, 0, 0, 0.5);

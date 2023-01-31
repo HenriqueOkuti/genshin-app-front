@@ -31,7 +31,11 @@ export function ProfileManager() {
         setUserData({ ...response });
       }
     }
-  }, [token]);
+  }, [token, updatedData]);
+
+  useEffect(() => {
+    setForceUpdate(!forceUpdate);
+  }, [updatedData]);
 
   if (window.innerWidth > 700) {
     //Render main version

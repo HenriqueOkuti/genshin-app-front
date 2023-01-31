@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import useToken from '../../../hooks/useToken';
+import { postUserCharacter } from '../../../services/Characters/getCharactersAPI';
 import { allTalents } from '../../../utils/abilitiesImageImporter';
 import { HandleRedirectButton } from './CharactersRedirect';
 import {
@@ -22,19 +24,26 @@ import {
 
 //main version
 export function CharAddingMain({ characterToAdd, setCharacterToAdd, setPageState, elements }) {
-  console.log(characterToAdd);
+  const tokenHook = useToken();
+  const [token, setToken] = useState(tokenHook);
   const [enabled, setEnabled] = useState(false);
   const [userCharData, setUserCharData] = useState({
     characterId: characterToAdd.id,
-    level: null,
-    friendship: null,
+    level: 1,
+    friendship: 1,
     talents: {
-      normal: null,
-      skill: null,
-      burst: null,
+      normal: 1,
+      skill: 1,
+      burst: 1,
     },
-    constellations: null,
+    constellations: 0,
   });
+
+  useEffect(() => {
+    if (!token) {
+      setToken(localStorage.getItem('token'));
+    }
+  }, []);
 
   const allTalentsImage = allTalents.imageTalents;
   const elementColors = {
@@ -59,6 +68,7 @@ export function CharAddingMain({ characterToAdd, setCharacterToAdd, setPageState
   const characterKey = characterToAdd.name.toLowerCase().replace(' ', '_').replace('(', '').replace(')', '');
   const charTalentsImages = allTalentsImage[characterKey];
 
+  //console.log('breakpoint: width === 990px')
   return (
     <>
       <AuxContainer>
@@ -153,7 +163,7 @@ export function CharAddingMain({ characterToAdd, setCharacterToAdd, setPageState
                 </IndividualTalent>
               </TalentsContainer>
               <MiscInputContainer>
-                <div>Level:</div>
+                <p>Level:</p>
                 <div>
                   <input
                     onChange={(e) => {
@@ -170,7 +180,7 @@ export function CharAddingMain({ characterToAdd, setCharacterToAdd, setPageState
                 </div>
               </MiscInputContainer>
               <MiscInputContainer>
-                <div>Friendship:</div>
+                <p>Friendship:</p>
                 <div>
                   <input
                     onChange={(e) => {
@@ -187,7 +197,7 @@ export function CharAddingMain({ characterToAdd, setCharacterToAdd, setPageState
                 </div>
               </MiscInputContainer>
               <MiscInputContainer>
-                <div>constellations:</div>
+                <p>Cons:</p>
                 <div>
                   <input
                     onChange={(e) => {
@@ -211,10 +221,12 @@ export function CharAddingMain({ characterToAdd, setCharacterToAdd, setPageState
             color={enabled}
             onClick={() => {
               if (enabled) {
-                console.log('add');
+                const response = addNewCharacter(token, userCharData);
+                if (response) {
+                  setCharacterToAdd(null);
+                  setPageState('initial');
+                }
               }
-              //setCharacterToAdd(null);
-              //setPageState('initial');
             }}
           >
             Add
@@ -260,6 +272,15 @@ function verifyData(userCharData) {
   }
 
   if (userCharData.constellations < 0 || userCharData.constellations > 6) {
+    return false;
+  }
+
+  return true;
+}
+
+async function addNewCharacter(token, userCharData) {
+  const response = await postUserCharacter(token, userCharData);
+  if (response.name) {
     return false;
   }
 

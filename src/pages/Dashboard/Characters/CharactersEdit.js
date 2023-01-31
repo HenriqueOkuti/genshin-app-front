@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import useToken from '../../../hooks/useToken';
+import { deleteUserCharacter, putUserCharacter } from '../../../services/Characters/getCharactersAPI';
 import { allTalents } from '../../../utils/abilitiesImageImporter';
 import { HandleRedirectButton } from './CharactersRedirect';
 import {
@@ -25,6 +27,8 @@ import {
 
 //main version
 export function CharEditMain({ characterToEdit, setCharacterToEdit, setPageState, elements }) {
+  const tokenHook = useToken();
+  const [token, setToken] = useState(tokenHook);
   const [enabled, setEnabled] = useState(false);
   const [userCharData, setUserCharData] = useState({
     userCharacterId: characterToEdit.id,
@@ -38,6 +42,12 @@ export function CharEditMain({ characterToEdit, setCharacterToEdit, setPageState
     },
     constellations: characterToEdit.constellations.length,
   });
+
+  useEffect(() => {
+    if (!token) {
+      setToken(localStorage.getItem('token'));
+    }
+  }, []);
 
   const allTalentsImage = allTalents.imageTalents;
   const elementColors = {
@@ -156,7 +166,7 @@ export function CharEditMain({ characterToEdit, setCharacterToEdit, setPageState
                 </IndividualTalent>
               </TalentsContainer>
               <MiscInputContainer>
-                <div>Level:</div>
+                <p>Level:</p>
                 <div>
                   <input
                     onChange={(e) => {
@@ -173,7 +183,7 @@ export function CharEditMain({ characterToEdit, setCharacterToEdit, setPageState
                 </div>
               </MiscInputContainer>
               <MiscInputContainer>
-                <div>Friendship:</div>
+                <p>Friendship:</p>
                 <div>
                   <input
                     onChange={(e) => {
@@ -190,7 +200,7 @@ export function CharEditMain({ characterToEdit, setCharacterToEdit, setPageState
                 </div>
               </MiscInputContainer>
               <MiscInputContainer>
-                <div>constellations:</div>
+                <p>Cons:</p>
                 <div>
                   <input
                     onChange={(e) => {
@@ -213,7 +223,11 @@ export function CharEditMain({ characterToEdit, setCharacterToEdit, setPageState
           <EditDeleteButton
             onClick={() => {
               if (enabled) {
-                console.log('confirmation modal');
+                const response = deleteCharacter(token, userCharData);
+                if (response) {
+                  setCharacterToEdit(null);
+                  setPageState('initial');
+                }
               }
             }}
           >
@@ -223,10 +237,12 @@ export function CharEditMain({ characterToEdit, setCharacterToEdit, setPageState
             color={enabled}
             onClick={() => {
               if (enabled) {
-                console.log('modify');
+                const response = modifyCharacter(token, userCharData);
+                if (response) {
+                  setCharacterToEdit(null);
+                  setPageState('initial');
+                }
               }
-              //setCharacterToEdit(null);
-              //setPageState('initial');
             }}
           >
             Modify
@@ -279,5 +295,21 @@ function verifyData(userCharData) {
     return false;
   }
 
+  return true;
+}
+
+async function modifyCharacter(token, userCharData) {
+  const response = await putUserCharacter(token, userCharData);
+  if (response.name) {
+    return false;
+  }
+  return true;
+}
+
+async function deleteCharacter(token, userCharData) {
+  const response = await deleteUserCharacter(token, userCharData.userCharacterId);
+  if (response.name) {
+    return false;
+  }
   return true;
 }

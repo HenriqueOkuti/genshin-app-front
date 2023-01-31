@@ -1,5 +1,7 @@
 import { TextField } from '@material-ui/core';
 import { useEffect, useState } from 'react';
+import useToken from '../../../hooks/useToken';
+import { putUser } from '../../../services/UserInfo/getUserInfoAPI';
 import {
   ButtonContainer,
   ButtonContainerMobile,
@@ -15,12 +17,32 @@ import {
 
 export function ProfileMain({ userData, updatedData, setUpdatedData }) {
   //console.log(userData);
+  const tokenHook = useToken();
+  const [token, setToken] = useState(tokenHook);
   const [newUserData, setNewUserData] = useState({ ...userData });
   const [validImage, setValidImage] = useState('original');
   const [imageURL, setImageURL] = useState('');
   const [validData, setValidData] = useState(false);
-  //
+
+  useEffect(() => {
+    if (!token) {
+      setToken(localStorage.getItem('token'));
+    }
+  }, []);
+
   useEffect(async () => {
+    if (imageURL === '') {
+      setValidImage('original');
+      setNewUserData({ ...newUserData, image: userData.image });
+    }
+
+    const urlRegex =
+      /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/;
+    if (imageURL && !imageURL.match(urlRegex)) {
+      setValidImage('invalid');
+      setNewUserData({ ...newUserData, image: 'https://media.tenor.com/-jKFU5c-fXgAAAAC/genshin-paimon.gif' });
+    }
+
     if (imageURL !== userData.image && imageURL) {
       const imageIsValid = await verifyURL(imageURL);
       if (imageIsValid) {
@@ -32,6 +54,7 @@ export function ProfileMain({ userData, updatedData, setUpdatedData }) {
       }
     } else {
       setValidImage('original');
+      setNewUserData({ ...newUserData, image: userData.image });
     }
   }, [imageURL]);
 
@@ -69,8 +92,8 @@ export function ProfileMain({ userData, updatedData, setUpdatedData }) {
             <TextField
               onChange={(e) => setNewUserData({ ...userData, name: e.target.value })}
               fullWidth
-              key={newUserData.name}
-              defaultValue={newUserData.name}
+              key={userData.name}
+              defaultValue={userData.name}
               disabled={false}
               id="outlined-required"
             />
@@ -78,8 +101,8 @@ export function ProfileMain({ userData, updatedData, setUpdatedData }) {
             <TextField
               fullWidth
               disabled={true}
-              key={newUserData.email}
-              defaultValue={newUserData.email}
+              key={userData.email}
+              defaultValue={userData.email}
               id="outlined-required"
             />
           </InputColumn>
@@ -98,7 +121,19 @@ export function ProfileMain({ userData, updatedData, setUpdatedData }) {
           </div>
         </ImageUpdateField>
         <ButtonContainer>
-          <UpdateDataButton color={validData}>Update</UpdateDataButton>
+          <UpdateDataButton
+            onClick={() => {
+              if (validData) {
+                const response = modifyData(token, newUserData);
+                if (response) {
+                  setUpdatedData(!updatedData);
+                }
+              }
+            }}
+            colors={validData}
+          >
+            Update
+          </UpdateDataButton>
         </ButtonContainer>
       </div>
     </>
@@ -220,6 +255,15 @@ function verifyData(newData, oldData, validImage) {
     return false;
   }
   if (newData.email === oldData.email && newData.image === oldData.image && newData.name === oldData.name) {
+    return false;
+  }
+
+  return true;
+}
+
+async function modifyData(token, userData) {
+  const response = await putUser(token, userData);
+  if (response.name) {
     return false;
   }
 

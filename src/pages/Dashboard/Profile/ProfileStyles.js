@@ -105,7 +105,7 @@ export const UpdateDataButton = styled.div`
   height: 100px;
   width: 240px;
   border-radius: 20px;
-  background-color: ${(props) => (props.color ? '#4bb543' : '#c7d6d5')};
+  background-color: ${(props) => (props.colors ? '#4bb543' : '#c7d6d5')};
   -webkit-box-shadow: -4px 2px 16px 0px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: -4px 2px 16px 0px rgba(0, 0, 0, 0.75);
   box-shadow: -4px 2px 16px 0px rgba(0, 0, 0, 0.75);

@@ -51,6 +51,7 @@ export async function fetchUserCharacters(userToken, charsDict, allCharsDict, al
     const fixedCharacters = characters.map((char) => {
       const userCharName = charsDict[char.characterId];
       const charKey = userCharName.toLowerCase().replace(' ', '_').replace(')', '').replace('(', '');
+
       return {
         ...char,
         imageFace: charactersImagesFace[charKey],
