@@ -6,8 +6,7 @@ export const AuxContainer = styled.div`
 
   overflow-y: scroll;
 
-  padding-top: 10px;
-  margin: 0 5% 5% 5%;
+  margin: 0 5% 0 5%;
 `;
 
 export const CharactersHeader = styled.div`
@@ -68,7 +67,7 @@ export const CharactersList = styled.div`
 
   gap: 5px;
   margin: 15px 0 5% 0;
-  height: 80%;
+  height: 100%;
   overflow-y: scroll;
 
   > img {
@@ -246,6 +245,7 @@ export const TalentInfo = styled.div`
     height: 50px;
     width: 50px;
     background-color: ${(props) => (props.color ? props.color : 'none')};
+    border-radius: 5px;
   }
 
   p {

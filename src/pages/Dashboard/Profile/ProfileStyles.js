@@ -5,6 +5,7 @@ export const AuxContainer = styled.div`
   height: 90%;
 
   overflow-y: scroll;
+  font-family: 'Inter', arial;
 
   padding-top: 10px;
   margin: 0 5% 5% 5%;
@@ -51,6 +52,20 @@ export const ImageColumn = styled.div`
   }
 `;
 
+export const ProfileFormsDataMobile = styled.div`
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: flex-start;
+  justify-items: center;
+  margin-bottom: 20px;
+
+  img {
+    height: 180px;
+    width: 180px;
+  }
+`;
+
 export const InputColumn = styled.div`
   font-size: 20px;
 `;
@@ -75,6 +90,12 @@ export const ButtonContainer = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: flex-end;
+`;
+
+export const ButtonContainerMobile = styled.div`
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
 `;
 
 export const UpdateDataButton = styled.div`

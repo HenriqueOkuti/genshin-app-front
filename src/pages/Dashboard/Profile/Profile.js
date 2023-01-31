@@ -1,19 +1,23 @@
 import { useEffect, useState } from 'react';
+import { useOutletContext } from 'react-router-dom';
 import useToken from '../../../hooks/useToken';
 import { getUser } from '../../../services/services';
-import { ProfileMain } from './ProfileForms';
+import { ProfileMain, ProfileMobile } from './ProfileForms';
 import { AuxContainer, ProfileFormsContainer, ProfileHeaders } from './ProfileStyles';
 
 export function ProfileManager() {
+  const [forceUpdate, setForceUpdate] = useOutletContext();
   const tokenHook = useToken();
   const [token, setToken] = useState(tokenHook);
   const [updatedData, setUpdatedData] = useState(false);
   const [userData, setUserData] = useState({
     id: 0,
-    name: 'Username',
-    email: 'default@mail.com',
-    image: 'https://d16u9y6cg00afk.cloudfront.net/Genshin_Impact_Official_Chibi/966410.512.webp',
+    name: 'Loading Username',
+    email: 'Loading email',
+    image: 'https://giffiles.alphacoders.com/214/214140.gif',
   });
+
+  console.log(forceUpdate, setForceUpdate);
 
   if (!token) {
     setToken(localStorage.getItem('token'));
@@ -55,10 +59,28 @@ export function ProfileManager() {
     }
   } else {
     //Render mobile version
-    return (
-      <>
-        <div>Mobile page</div>
-      </>
-    );
+    if (userData?.name) {
+      return (
+        <AuxContainer>
+          <ProfileHeaders>
+            <div>Hello, {userData.name}</div>
+          </ProfileHeaders>
+          <ProfileFormsContainer>
+            <ProfileMobile userData={{ ...userData }} updatedData={updatedData} setUpdatedData={setUpdatedData} />
+          </ProfileFormsContainer>
+        </AuxContainer>
+      );
+    } else {
+      //setFetch(true);
+
+      return (
+        <AuxContainer>
+          <ProfileHeaders>
+            <div>Hello...</div>
+          </ProfileHeaders>
+          <div>Loading data...</div>
+        </AuxContainer>
+      );
+    }
   }
 }

@@ -23,11 +23,11 @@ export function Dashboard() {
   const [update, setUpdate] = useState(false);
   const [userData, setUserData] = useState({
     id: 0,
-    name: 'Username',
-    email: 'default@mail.com',
-    image: 'https://d16u9y6cg00afk.cloudfront.net/Genshin_Impact_Official_Chibi/966410.512.webp',
+    name: 'Loading...',
+    email: 'Loading email',
+    image: 'https://giffiles.alphacoders.com/214/214140.gif',
   });
-  const [forceUpdate, setForceUpdate] = useState(false);
+  const [forceUpdate, setForceUpdate] = useState('false');
 
   if (!token) {
     setToken(localStorage.getItem('token'));
@@ -44,7 +44,7 @@ export function Dashboard() {
         setUserData(response);
       }
     }
-  }, [token]);
+  }, [token, forceUpdate]);
 
   //Handles width of screen
   useEffect(() => {
@@ -62,7 +62,7 @@ export function Dashboard() {
             <ContentMenu
               update={update}
               setUpdate={setUpdate}
-              children={<Outlet setUpdate={setUpdate} forceUpdate={forceUpdate} />}
+              children={<Outlet context={[forceUpdate, setForceUpdate]} />}
             ></ContentMenu>
           </MainMenuContainer>
         </DashboardContainer>
