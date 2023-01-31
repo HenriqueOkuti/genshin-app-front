@@ -28,7 +28,6 @@ export function OAuth() {
     navigate('/login');
   }
 
-  // eslint-disable-next-line space-before-function-paren
   useEffect(async () => {
     if (code) {
       const response = await fetchUserInfo(code, setUpdate, update);

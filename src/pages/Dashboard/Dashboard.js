@@ -37,7 +37,6 @@ export function Dashboard() {
     setTheme(userTheme);
   }, [update, forceUpdate]);
 
-  // eslint-disable-next-line space-before-function-paren
   useEffect(async () => {
     if (token) {
       const response = await getUser(token);

@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import useToken from '../../../hooks/useToken';
 import { getUser } from '../../../services/services';
+import { ProfileMain } from './ProfileForms';
 import { AuxContainer, ProfileFormsContainer, ProfileHeaders } from './ProfileStyles';
 
 export function ProfileManager() {
   const tokenHook = useToken();
   const [token, setToken] = useState(tokenHook);
+  const [updatedData, setUpdatedData] = useState(false);
   const [userData, setUserData] = useState({
     id: 0,
     name: 'Username',
@@ -17,7 +19,6 @@ export function ProfileManager() {
     setToken(localStorage.getItem('token'));
   }
 
-  // eslint-disable-next-line space-before-function-paren
   useEffect(async () => {
     if (token) {
       const response = await getUser(token);
@@ -36,7 +37,7 @@ export function ProfileManager() {
             <div>Hello, {userData.name}</div>
           </ProfileHeaders>
           <ProfileFormsContainer>
-            <div>Forms</div>
+            <ProfileMain userData={userData} updatedData={updatedData} setUpdatedData={setUpdatedData} />
           </ProfileFormsContainer>
           <div>
             <div>Update data</div>

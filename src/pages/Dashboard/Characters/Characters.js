@@ -43,7 +43,6 @@ export function CharactersManager() {
     useWindowWidth(setWindowWidth);
   }, []);
 
-  // eslint-disable-next-line space-before-function-paren
   useEffect(async () => {
     let auxToken;
     if (!token) {
@@ -51,7 +50,6 @@ export function CharactersManager() {
       setToken(auxToken);
     }
     let fetchAll;
-    // eslint-disable-next-line space-before-function-paren
     await fetchAllCharacters(token ? token : auxToken).then(async (res) => {
       fetchAll = res;
       setAllCharacters([...fetchAll[0]]);
@@ -73,7 +71,6 @@ export function CharactersManager() {
     });
   }, [updateList, fetchAgain]);
 
-  // eslint-disable-next-line space-before-function-paren
   useEffect(async () => {
     let auxToken = token ? token : localStorage.getItem('token');
     const fetchedElements = await fetchElements(auxToken);
