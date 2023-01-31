@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Title = styled.div`
-  font-family: 'Inter';
+  font-family: 'Inter', arial;
   font-style: normal;
   font-weight: 400;
   font-size: 42px;
@@ -22,7 +22,7 @@ export const Title = styled.div`
 `;
 
 export const Subtitle = styled.div`
-  font-family: 'Inter';
+  font-family: 'Inter', arial;
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -57,9 +57,26 @@ export const OAuthButton = styled.div`
   text-align: center;
 
   display: flex;
-  flex-direction: column;
+  //flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background-color: ${(props) => props.color};
+    color: ${(props) => props.fcolor};
+    border-radius: 10px;
+    font-size: 21px;
+  }
+`;
+
+export const OAuthLogo = styled.img`
+  height: 50%;
+  margin-right: 10px;
 `;
 
 export const DividerLogin = styled.div`
@@ -81,7 +98,7 @@ export const DividerLineContainer = styled.div`
 `;
 
 export const DividerText = styled.div`
-  font-family: 'Inter';
+  font-family: 'Inter', arial;
   font-style: normal;
   font-weight: 400;
   font-size: 20px;
@@ -124,7 +141,7 @@ export const AuthenticationForms = styled.form`
 `;
 
 export const AuthenticationFormsText = styled.div`
-  font-family: 'Inter';
+  font-family: 'Inter', arial;
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -147,7 +164,7 @@ export const AuthenticationButtom = styled.div`
 
   height: 60px;
 
-  background: #996cc9;
+  background: #1f3265;
   border: 1px solid #e0e0e0;
   border-radius: 10px;
 
@@ -155,23 +172,23 @@ export const AuthenticationButtom = styled.div`
   margin-bottom: 20px !important;
 
   p {
-    font-family: 'Inter';
+    font-family: 'Inter', arial;
     font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
+    font-weight: 500;
+    font-size: 20px;
     line-height: 19px;
     display: flex;
     align-items: center;
     text-align: center;
 
-    color: #000000;
+    color: #ffffff;
 
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   }
 `;
 
 export const RedirectAuth = styled.div`
-  font-family: 'Inter';
+  font-family: 'Inter', arial;
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -186,5 +203,29 @@ export const RedirectAuth = styled.div`
   p {
     margin-left: 5px !important;
     color: #81b2c6;
+  }
+`;
+
+export const OAuthLoader = styled.div`
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  p {
+    font-family: 'Inter', arial;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 19px;
+    display: flex;
+    align-items: center;
+
+    color: #929292;
+
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    margin: 25px 0 25px 0;
   }
 `;
