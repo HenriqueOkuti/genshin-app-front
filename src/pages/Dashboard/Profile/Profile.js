@@ -23,7 +23,7 @@ export function ProfileManager() {
     if (token) {
       const response = await getUser(token);
       if (response.id) {
-        setUserData(response);
+        setUserData({ ...response });
       }
     }
   }, [token]);
@@ -37,11 +37,8 @@ export function ProfileManager() {
             <div>Hello, {userData.name}</div>
           </ProfileHeaders>
           <ProfileFormsContainer>
-            <ProfileMain userData={userData} updatedData={updatedData} setUpdatedData={setUpdatedData} />
+            <ProfileMain userData={{ ...userData }} updatedData={updatedData} setUpdatedData={setUpdatedData} />
           </ProfileFormsContainer>
-          <div>
-            <div>Update data</div>
-          </div>
         </AuxContainer>
       );
     } else {
