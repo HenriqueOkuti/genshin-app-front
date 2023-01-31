@@ -14,6 +14,7 @@ import {
   LineUpSide,
   OAuthButton,
   OAuthContainer,
+  OAuthLogo,
   RedirectAuth,
   Subtitle,
   Title,
@@ -21,6 +22,8 @@ import {
 import { loginUser } from '../../services/Authentication/authenticationAPI';
 import { useWindowWidth } from '../../hooks/useWindowWidth';
 import { toast } from 'react-toastify';
+import GitHubLogo from '../../assets/images/login/GitHub_Logo_White.png';
+import GitHubMark from '../../assets/images/login/github-mark-white.svg';
 
 export function Login() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -56,8 +59,11 @@ export function Login() {
           <OAuthButton onClick={() => console.log('Google Auth')}>
             <p>Google</p>
           </OAuthButton>
-          <OAuthButton onClick={() => handleLoginGithub()}>
-            <p>Github</p>
+          <OAuthButton color={'#171515'} fcolor={'#ffffff'} onClick={() => handleLoginGithub()}>
+            <div>
+              <OAuthLogo src={GitHubMark} alt="Github Mark" />
+              <p>Sign in with GitHub</p>
+            </div>
           </OAuthButton>
         </OAuthContainer>
         <DividerLogin>

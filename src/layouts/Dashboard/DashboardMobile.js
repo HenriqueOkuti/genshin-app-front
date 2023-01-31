@@ -31,7 +31,6 @@ export const MobilePageContainer = styled.div`
 `;
 
 export const MobileContentContainer = styled.div`
-  position: absolute;
   margin-top: 200px;
   width: 100%;
   height: 90%;

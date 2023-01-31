@@ -57,9 +57,26 @@ export const OAuthButton = styled.div`
   text-align: center;
 
   display: flex;
-  flex-direction: column;
+  //flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background-color: ${(props) => props.color};
+    color: ${(props) => props.fcolor};
+    border-radius: 10px;
+    font-size: 21px;
+  }
+`;
+
+export const OAuthLogo = styled.img`
+  height: 50%;
+  margin-right: 10px;
 `;
 
 export const DividerLogin = styled.div`

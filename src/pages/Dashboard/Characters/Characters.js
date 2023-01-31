@@ -45,13 +45,14 @@ export function CharactersManager() {
 
   // eslint-disable-next-line space-before-function-paren
   useEffect(async () => {
+    let auxToken;
     if (!token) {
-      setToken(localStorage.getItem('token'));
+      auxToken = localStorage.getItem('token');
+      setToken(auxToken);
     }
-
     let fetchAll;
     // eslint-disable-next-line space-before-function-paren
-    await fetchAllCharacters(token).then(async (res) => {
+    await fetchAllCharacters(token ? token : auxToken).then(async (res) => {
       fetchAll = res;
       setAllCharacters([...fetchAll[0]]);
       setAllCharsDict({ ...fetchAll[1] });
@@ -60,7 +61,7 @@ export function CharactersManager() {
       setElements([...fetchAll[3]]);
 
       let fetchUser;
-      await fetchUserCharacters(token, fetchAll[1], fetchAll[1], fetchAll[0]).then((res) => {
+      await fetchUserCharacters(token ? token : auxToken, fetchAll[1], fetchAll[1], fetchAll[0]).then((res) => {
         fetchUser = res;
         setUserCharacters([...fetchUser[0]]);
         setUserCharsDict({ ...fetchUser[1] });
@@ -74,7 +75,8 @@ export function CharactersManager() {
 
   // eslint-disable-next-line space-before-function-paren
   useEffect(async () => {
-    const fetchedElements = await fetchElements(token);
+    let auxToken = token ? token : localStorage.getItem('token');
+    const fetchedElements = await fetchElements(auxToken);
     if (fetchedElements) {
       setElements([...fetchedElements.elements]);
     }
