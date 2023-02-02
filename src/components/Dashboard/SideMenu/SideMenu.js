@@ -38,7 +38,7 @@ export function SideMenu({ update, setUpdate, userData }) {
             <ButtonText>Backpack</ButtonText>
           </Button>
           <Button onClick={() => navigate('/dashboard/tasks')}>
-            <ButtonText>Todo List</ButtonText>
+            <ButtonText>Task List</ButtonText>
           </Button>
         </ButtonsContainer>
         <ThemesContainer onClick={() => alterTheme(theme, modifyTheme, setTheme, setUpdate, update)}>
