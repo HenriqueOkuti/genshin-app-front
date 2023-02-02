@@ -1,7 +1,19 @@
-export function TasksAddMain() {
+import { HandleRedirectButton } from './TasksRedirect';
+import { AuxContainer, TasksHeader, TasksHeaderButtons } from './TasksStyles';
+
+export function TasksAddMain({ setPageState }) {
   return (
     <>
-      <div>Add task</div>
+      <AuxContainer>
+        <TasksHeader>
+          <div>Add task</div>
+          <TasksHeaderButtons>
+            <div>
+              <HandleRedirectButton pageState={'add'} setPageState={setPageState} />
+            </div>
+          </TasksHeaderButtons>
+        </TasksHeader>
+      </AuxContainer>
     </>
   );
 }

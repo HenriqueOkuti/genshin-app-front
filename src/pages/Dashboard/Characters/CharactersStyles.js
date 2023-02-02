@@ -43,7 +43,7 @@ export const CharactersHeaderButtons = styled.div`
     font-family: 'Inter', arial;
     font-style: normal;
     font-weight: 400;
-    font-size: 29px;
+    font-size: 26px;
     line-height: 29px;
     display: flex;
     align-items: center;
@@ -141,7 +141,7 @@ export const Dropdown = styled.div`
   z-index: 500;
 
   top: 20px;
-  right: 0px;
+  right: 5px;
 
   width: 180px;
   height: auto;
@@ -149,8 +149,10 @@ export const Dropdown = styled.div`
   display: flex;
   flex-direction: column;
 
-  background-color: #ffffff;
-
+  background-color: ${(props) => (props.theme ? props.theme.hex6 : '#ffffff')};
+  -webkit-box-shadow: -1px 3px 10px 2px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: -1px 3px 10px 2px rgba(0, 0, 0, 0.75);
+  box-shadow: -1px 3px 10px 2px rgba(0, 0, 0, 0.75);
   border-radius: 15px;
 
   div {

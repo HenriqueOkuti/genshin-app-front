@@ -1,67 +1,79 @@
 import { useEffect, useRef, useState } from 'react';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
+import {
+  AddItemButtom,
+  Dropdown,
+  DropdownAnchor,
+  ModalContainer,
+  ModalHeader,
+  TasksHeaderButtons,
+} from './TasksStyles';
+import { useSetTheme, useTheme } from '../../../hooks/useTheme';
+import { IoAddCircleOutline } from 'react-icons/io5';
 import { AiOutlineMenu } from 'react-icons/ai';
-import { useTheme, useSetTheme } from '../../../hooks/useTheme';
-import { HandleRedirectButton } from './TasksRedirect';
-import { RenderTasks } from './TasksRenderList';
-import { AuxContainer, Dropdown, DropdownAnchor, TasksHeader, TasksHeaderButtons, TasksList } from './TasksStyles';
 
-export function TasksInitialMain({ userTasks, setTaskToMod, setPageState, windowWidth }) {
-  const [filterType, setFilterType] = useState({ name: null });
-  const [updatedFilter, setUpdatedFilter] = useState(false);
-  const [suppText, setSuppText] = useState('');
-  const [filteredChars, setFilteredChars] = useState([...userTasks]);
+export default function NewItemModal({ taskId }) {
+  const theme = useTheme();
+  const setTheme = useSetTheme();
+  const [userTheme, setUserTheme] = [theme, setTheme];
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
-  //console.log(userTasks);
+  //console.log();
+  //THIS IS WHERE I NEED TO FETCH ITEMS FROM THE API
+
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: '60%',
+    height: '60%',
+    boxShadow: 24,
+    p: 4,
+  };
 
   return (
-    <>
-      <AuxContainer>
-        <TasksHeader>
-          <div>User tasks</div>
-          <TasksHeaderButtons>
+    <div>
+      <AddItemButtom theme={userTheme.palette}>
+        <Button onClick={handleOpen}>
+          <IoAddCircleOutline />
+        </Button>
+      </AddItemButtom>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <ModalContainer theme={userTheme.palette}>
+          <Box sx={style}>
+            <ModalHeader>
+              <div onClick={handleClose}>Pick an item</div>
+              <TasksHeaderButtons>
+                <div>
+                  <FilterMenuItemsModal />
+                </div>
+              </TasksHeaderButtons>
+            </ModalHeader>
             <div>
-              <HandleRedirectButton pageState={'initial'} setPageState={setPageState} />
+              <div>Item 1</div>
+              <div>Item 1</div>
+              <div>Item 1</div>
+              <div>Item 1</div>
             </div>
-            <div>
-              <FilterMenuInitial />
-            </div>
-          </TasksHeaderButtons>
-        </TasksHeader>
-        <TasksList>
-          {userTasks.map((task, index) => (
-            <RenderTasks
-              key={index}
-              task={task}
-              setTaskToMod={setTaskToMod}
-              setPageState={setPageState}
-              windowWidth={windowWidth}
-            />
-          ))}
-        </TasksList>
-      </AuxContainer>
-    </>
+          </Box>
+        </ModalContainer>
+      </Modal>
+    </div>
   );
 }
 
-export function TasksInitialMobile() {
-  return (
-    <>
-      <AuxContainer>
-        <TasksHeader>
-          <div>User tasks mobile</div>
-          <TasksHeaderButtons>
-            <div>Add</div>
-            <div>
-              <FilterMenuInitial />
-            </div>
-          </TasksHeaderButtons>
-        </TasksHeader>
-      </AuxContainer>
-    </>
-  );
-}
-
-export function FilterMenuInitial() {
+export function FilterMenuItemsModal() {
   const [open, setOpen] = useState(false);
   const wrapperRef = useRef(null);
 
