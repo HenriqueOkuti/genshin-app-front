@@ -43,7 +43,7 @@ export const CharactersHeaderButtons = styled.div`
     font-family: 'Inter', arial;
     font-style: normal;
     font-weight: 400;
-    font-size: 29px;
+    font-size: 26px;
     line-height: 29px;
     display: flex;
     align-items: center;
@@ -66,8 +66,8 @@ export const CharactersList = styled.div`
   align-items: self-start;
 
   gap: 5px;
-  margin: 15px 0 5% 0;
-  height: 100%;
+  //margin: 15px 0 0 0;
+  height: 90%;
   overflow-y: scroll;
 
   > img {
@@ -141,7 +141,7 @@ export const Dropdown = styled.div`
   z-index: 500;
 
   top: 20px;
-  right: 0px;
+  right: 5px;
 
   width: 180px;
   height: auto;
@@ -149,8 +149,10 @@ export const Dropdown = styled.div`
   display: flex;
   flex-direction: column;
 
-  background-color: #ffffff;
-
+  background-color: ${(props) => (props.theme ? props.theme.hex6 : '#ffffff')};
+  -webkit-box-shadow: -1px 3px 10px 2px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: -1px 3px 10px 2px rgba(0, 0, 0, 0.75);
+  box-shadow: -1px 3px 10px 2px rgba(0, 0, 0, 0.75);
   border-radius: 15px;
 
   div {
@@ -235,6 +237,7 @@ export const TalentsContainer = styled.div`
 
 export const IndividualTalent = styled.div``;
 
+//${(props) => (props.colors ? props.colors : 'none')};
 export const TalentInfo = styled.div`
   display: flex;
   align-items: center;
@@ -245,7 +248,7 @@ export const TalentInfo = styled.div`
   img {
     height: 50px;
     width: 50px;
-    background-color: ${(props) => (props.color ? props.color : 'none')};
+    background-color: ${(props) => (props.colors ? props.colors : 'none')};
     border-radius: 5px;
   }
 
@@ -311,7 +314,7 @@ export const EditCharacterImage = styled.div`
 
   > * {
     display: flex;
-    background-color: ${(props) => (props.color ? props.color : 'none')};
+    background-color: ${(props) => (props.colors ? props.colors : 'none')};
     min-height: 400px;
     max-height: 40px !important;
     border-radius: 15px;

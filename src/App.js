@@ -6,9 +6,11 @@ import ThemeContext from './contexts/ThemeContext';
 import UserContext from './contexts/UserContext';
 import { Background } from './layouts/layouts';
 import { OAuth } from './pages/Authentication/OAuth';
+import { BackpackManager } from './pages/Dashboard/Backpack/Backpack';
 import { CharactersManager } from './pages/Dashboard/Characters/Characters';
-import { Home } from './pages/Dashboard/Home/Home';
+import { Home, HomeManager } from './pages/Dashboard/Home/Home';
 import { ProfileManager } from './pages/Dashboard/Profile/Profile';
+import { TasksManager } from './pages/Dashboard/Tasks/Tasks';
 import { Dashboard, LandingPage, Login, SignUp } from './pages/pages';
 
 export default function App() {
@@ -55,10 +57,10 @@ export default function App() {
                     }
                   >
                     <Route path="profile" element={<ProfileManager />} />
-                    <Route path="home" element={<>Home</>} />
+                    <Route path="home" element={<HomeManager />} />
                     <Route path="characters" element={<CharactersManager />} />
-                    <Route path="backpack" element={<>Backpack</>} />
-                    <Route path="tasks" element={<>Tasks</>} />
+                    <Route path="backpack" element={<BackpackManager />} />
+                    <Route path="tasks" element={<TasksManager />} />
                     <Route index path="*" element={<Navigate to="/dashboard/home" />} />
                   </Route>
                 </Routes>

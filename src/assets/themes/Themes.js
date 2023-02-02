@@ -48,7 +48,7 @@ const YoimiyaTheme = {
   id: 7,
   name: 'Yoimiya',
   image: 'https://pbs.twimg.com/media/E77GoxhXsAAi2tE.png',
-  palette: { hex1: '#291918', hex2: '#50474F', hex3: '#872923', hex4: '#D4A884', hex5: '#D4A884', hex6: '#F9E4CF' },
+  palette: { hex1: '#291918', hex2: '#50474F', hex3: '#E16621', hex4: '#D4A884', hex5: '#D4A884', hex6: '#F9E4CF' },
 };
 
 const KokomiTheme = {
@@ -63,14 +63,14 @@ const RosariaTheme = {
   name: 'Rosaria',
   image:
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlg_VX9qL4nRGAcioMlNjPik6mG0h4lFDU0lISJvSUcbVUihoH_yoo1Uai9HB7fL4CZyc&usqp=CAU',
-  palette: { hex1: '#2F1B25', hex2: '#74182B', hex3: '#5B3C46', hex4: '#895C60', hex5: '#B59F9A', hex6: '#E9E2E1' },
+  palette: { hex1: '#2F1B25', hex2: '#74182B', hex3: '#5B3C46', hex4: '#750D45', hex5: '#B59F9A', hex6: '#E9E2E1' },
 };
 
 const GanyuTheme = {
   id: 10,
   name: 'Ganyu',
   image: 'https://cdn3.emoji.gg/emojis/7717-chibi-ganyu-happy.png',
-  palette: { hex1: '#422B3C', hex2: '#7E5556', hex3: '#5567AE', hex4: '#B19784', hex5: '#8BA9DB', hex6: '#DAE0EC' },
+  palette: { hex1: '#422B3C', hex2: '#7E5556', hex3: '#5567AE', hex4: '#505ea9', hex5: '#8BA9DB', hex6: '#DAE0EC' },
 };
 
 const XinyanTheme = {
@@ -78,7 +78,7 @@ const XinyanTheme = {
   name: 'Xinyan',
   image:
     'https://64.media.tumblr.com/2381aafc251809227f09c4a539ec47ee/727e7e011bd4724b-0d/s400x600/be0fd9fc25f32b18c076e7635d6de9239fbbf63e.png',
-  palette: { hex1: '#2B1A1C', hex2: '#583835', hex3: '#A83425', hex4: '#83665E', hex5: '#B79D8D', hex6: '#E6E0D3' },
+  palette: { hex1: '#2B1A1C', hex2: '#583835', hex3: '#A83425', hex4: '#83665e', hex5: '#B79D8D', hex6: '#E6E0D3' },
 };
 
 const KleeTheme = {
@@ -93,7 +93,7 @@ const VentiTheme = {
   id: 13,
   name: 'Venti',
   image: 'https://sticker.nyc3.cdn.digitaloceanspaces.com/20210909/file_7468606_512x512.webp',
-  palette: { hex1: '#1C1919', hex2: '#24364B', hex3: '#03A9D9', hex4: '#24364B', hex5: '#0CF4E8', hex6: '#F3F2EE' },
+  palette: { hex1: '#1C1919', hex2: '#24364B', hex3: '#03A9D9', hex4: '#357580', hex5: '#0CF4E8', hex6: '#F3F2EE' },
 };
 
 const JeanTheme = {
@@ -117,7 +117,7 @@ const AmberTheme = {
   name: 'Amber',
   image:
     'https://i.redd.it/i-cut-out-all-the-pizza-hut-amber-baron-bunny-emotes-as-v0-qyk8cal7mwi91.png?width=251&format=png&auto=webp&s=ff7efbb4e1b008416687e5fab454f9701a706a7d',
-  palette: { hex1: '#2D1F21', hex2: '#583D3B', hex3: '#BDADAD', hex4: '#84685C', hex5: '#B52D2C', hex6: '#F0E3DB' },
+  palette: { hex1: '#2D1F21', hex2: '#583D3B', hex3: '#BDADAD', hex4: '#D2222D', hex5: '#B52D2C', hex6: '#F0E3DB' },
 };
 
 const LumineTheme = {

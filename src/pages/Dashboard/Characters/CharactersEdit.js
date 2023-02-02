@@ -96,7 +96,7 @@ export function CharEditMain({ characterToEdit, setCharacterToEdit, setPageState
               <TalentsContainer>
                 <TalentsTitle>Talents:</TalentsTitle>
                 <IndividualTalent>
-                  <TalentInfo color={colorsDict[characterToEdit.elementId]}>
+                  <TalentInfo colors={colorsDict[characterToEdit.elementId]}>
                     <img src={charTalentsImages.talents.normal} alt={'Normal attack'} />
                     <div>Normal</div>
                     <div>
@@ -119,7 +119,7 @@ export function CharEditMain({ characterToEdit, setCharacterToEdit, setPageState
                   </TalentInfo>
                 </IndividualTalent>
                 <IndividualTalent>
-                  <TalentInfo color={colorsDict[characterToEdit.elementId]}>
+                  <TalentInfo colors={colorsDict[characterToEdit.elementId]}>
                     <img src={charTalentsImages.talents.skill} alt={'Normal attack'} />
                     <div>Skill</div>
                     <div>
@@ -142,7 +142,7 @@ export function CharEditMain({ characterToEdit, setCharacterToEdit, setPageState
                   </TalentInfo>
                 </IndividualTalent>
                 <IndividualTalent>
-                  <TalentInfo color={colorsDict[characterToEdit.elementId]}>
+                  <TalentInfo colors={colorsDict[characterToEdit.elementId]}>
                     <img src={charTalentsImages.talents.burst} alt={'Normal attack'} />
                     <div>Burst</div>
                     <div>

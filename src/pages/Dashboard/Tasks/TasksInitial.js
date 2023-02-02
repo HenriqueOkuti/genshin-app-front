@@ -1,68 +1,67 @@
 import { useEffect, useRef, useState } from 'react';
-import { useSetTheme, useTheme } from '../../../hooks/useTheme';
-import useToken from '../../../hooks/useToken';
-import { useWindowWidth } from '../../../hooks/useWindowWidth';
-import {
-  AuxContainer,
-  Dropdown,
-  DropdownAnchor,
-  EmptyTasksContainer,
-  HomeHeader,
-  HomeHeaderButtons,
-} from './HomeStyles';
 import { AiOutlineMenu } from 'react-icons/ai';
-import { RenderHomeTasks } from './HomeTasks';
+import { useTheme, useSetTheme } from '../../../hooks/useTheme';
+import { HandleRedirectButton } from './TasksRedirect';
+import { RenderTasks } from './TasksRenderList';
+import { AuxContainer, Dropdown, DropdownAnchor, TasksHeader, TasksHeaderButtons, TasksList } from './TasksStyles';
 
-export function HomeManager() {
-  const userTheme = useTheme();
-  const tokenHook = useToken();
-  const [token, setToken] = useState(tokenHook);
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const [dailyTasks, setDailyTasks] = useState([]);
+export function TasksInitialMain({ userTasks, setTaskToMod, setPageState, windowWidth }) {
+  const [filterType, setFilterType] = useState({ name: null });
+  const [updatedFilter, setUpdatedFilter] = useState(false);
+  const [suppText, setSuppText] = useState('');
+  const [filteredChars, setFilteredChars] = useState([...userTasks]);
 
-  useEffect(() => {
-    //Handles width of screen
-    useWindowWidth(setWindowWidth);
-  }, []);
+  //console.log(userTasks);
 
-  if (windowWidth > 700) {
-    //Render main version
-    return (
-      <>
-        <AuxContainer>
-          <HomeHeader>
-            <div>Home</div>
-            <HomeHeaderButtons>
-              <div>
-                <FilterMenuHome />
-              </div>
-            </HomeHeaderButtons>
-          </HomeHeader>
-          {dailyTasks[0] ? <RenderHomeTasks /> : <EmptyTasks />}
-        </AuxContainer>
-      </>
-    );
-  } else {
-    //Render mobile version
-    return (
-      <>
-        <AuxContainer>
-          <HomeHeader>
-            <div>Home</div>
-            <HomeHeaderButtons>
-              <div>
-                <FilterMenuHome />
-              </div>
-            </HomeHeaderButtons>
-          </HomeHeader>
-          {dailyTasks[0] ? <RenderHomeTasks /> : <EmptyTasks />}
-        </AuxContainer>
-      </>
-    );
-  }
+  return (
+    <>
+      <AuxContainer>
+        <TasksHeader>
+          <div>User tasks</div>
+          <TasksHeaderButtons>
+            <div>
+              <HandleRedirectButton pageState={'initial'} setPageState={setPageState} />
+            </div>
+            <div>
+              <FilterMenuInitial />
+            </div>
+          </TasksHeaderButtons>
+        </TasksHeader>
+        <TasksList>
+          {userTasks.map((task, index) => (
+            <RenderTasks
+              key={index}
+              task={task}
+              setTaskToMod={setTaskToMod}
+              setPageState={setPageState}
+              windowWidth={windowWidth}
+            />
+          ))}
+        </TasksList>
+      </AuxContainer>
+    </>
+  );
 }
 
-export function FilterMenuHome() {
+export function TasksInitialMobile() {
+  return (
+    <>
+      <AuxContainer>
+        <TasksHeader>
+          <div>User tasks mobile</div>
+          <TasksHeaderButtons>
+            <div>Add</div>
+            <div>
+              <FilterMenuInitial />
+            </div>
+          </TasksHeaderButtons>
+        </TasksHeader>
+      </AuxContainer>
+    </>
+  );
+}
+
+export function FilterMenuInitial() {
   const [open, setOpen] = useState(false);
   const wrapperRef = useRef(null);
 
@@ -149,16 +148,6 @@ export function FilterMenuDropdown({ filterOptions }) {
           );
         })}
       </Dropdown>
-    </>
-  );
-}
-
-function EmptyTasks() {
-  return (
-    <>
-      <EmptyTasksContainer>
-        <div>No tasks scheduled for today</div>
-      </EmptyTasksContainer>
     </>
   );
 }

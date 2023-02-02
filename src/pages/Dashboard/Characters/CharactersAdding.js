@@ -86,14 +86,14 @@ export function CharAddingMain({ characterToAdd, setCharacterToAdd, setPageState
         </CharactersHeader>
         <EditCharacterOuterContainer>
           <EditCharacterContainer>
-            <EditCharacterImage color={colorsDict[characterToAdd.elementId]}>
+            <EditCharacterImage colors={colorsDict[characterToAdd.elementId]}>
               <img src={characterToAdd.imageSplashArt} alt={`${characterToAdd.name}`} />
             </EditCharacterImage>
             <EditForms>
               <TalentsContainer>
                 <TalentsTitle>Talents:</TalentsTitle>
                 <IndividualTalent>
-                  <TalentInfo color={colorsDict[characterToAdd.elementId]}>
+                  <TalentInfo colors={colorsDict[characterToAdd.elementId]}>
                     <img src={charTalentsImages.talents.normal} alt={'Normal attack'} />
                     <div>Normal</div>
                     <div>
@@ -116,7 +116,7 @@ export function CharAddingMain({ characterToAdd, setCharacterToAdd, setPageState
                   </TalentInfo>
                 </IndividualTalent>
                 <IndividualTalent>
-                  <TalentInfo color={colorsDict[characterToAdd.elementId]}>
+                  <TalentInfo colors={colorsDict[characterToAdd.elementId]}>
                     <img src={charTalentsImages.talents.skill} alt={'Normal attack'} />
                     <div>Skill</div>
                     <div>
@@ -139,7 +139,7 @@ export function CharAddingMain({ characterToAdd, setCharacterToAdd, setPageState
                   </TalentInfo>
                 </IndividualTalent>
                 <IndividualTalent>
-                  <TalentInfo color={colorsDict[characterToAdd.elementId]}>
+                  <TalentInfo colors={colorsDict[characterToAdd.elementId]}>
                     <img src={charTalentsImages.talents.burst} alt={'Normal attack'} />
                     <div>Burst</div>
                     <div>

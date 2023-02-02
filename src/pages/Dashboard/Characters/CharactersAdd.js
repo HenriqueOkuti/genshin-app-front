@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { AiOutlineMenu } from 'react-icons/ai';
+import { useSetTheme, useTheme } from '../../../hooks/useTheme';
 import { createDoubleLinkedList, handleFilter } from './CharactersFilter';
 import { HandleRedirectButton } from './CharactersRedirect';
 import { AddRenderImages } from './CharactersRenderList';
@@ -162,9 +163,13 @@ export function FilterMenuAdd({ setUpdatedFilter, updatedFilter, setFilterType, 
 }
 
 export function FilterMenuDropdown({ filterOptions }) {
+  const theme = useTheme();
+  const setTheme = useSetTheme();
+  const [userTheme, setUserTheme] = [theme, setTheme];
+
   return (
     <>
-      <Dropdown>
+      <Dropdown theme={userTheme.palette}>
         {filterOptions.map((filter, index) => {
           return (
             <div
