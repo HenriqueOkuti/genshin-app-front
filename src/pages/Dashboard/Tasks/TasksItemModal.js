@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import {
   AddItemButtom,
@@ -76,6 +75,10 @@ export default function NewItemModal({ taskId }) {
 export function FilterMenuItemsModal() {
   const [open, setOpen] = useState(false);
   const wrapperRef = useRef(null);
+
+  //fetch all items
+  //import the images
+  //join images with items
 
   const filterOptions = [
     {

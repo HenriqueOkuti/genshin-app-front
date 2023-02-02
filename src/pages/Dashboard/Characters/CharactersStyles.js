@@ -247,7 +247,7 @@ export const TalentInfo = styled.div`
   img {
     height: 50px;
     width: 50px;
-    background-color: ${(props) => (props.color ? props.color : 'none')};
+    background-color: ${(props) => (props.colors ? props.colors : 'none')};
     border-radius: 5px;
   }
 
@@ -313,7 +313,7 @@ export const EditCharacterImage = styled.div`
 
   > * {
     display: flex;
-    background-color: ${(props) => (props.color ? props.color : 'none')};
+    background-color: ${(props) => (props.colors ? props.colors : 'none')};
     min-height: 400px;
     max-height: 40px !important;
     border-radius: 15px;

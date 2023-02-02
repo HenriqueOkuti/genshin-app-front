@@ -4,6 +4,7 @@ import { useSetTheme, useTheme } from '../../../hooks/useTheme';
 import { ExcludeItemContainer, ItemContainer, ItemImage, ItemInfo } from './TasksStyles';
 import { RiDeleteBack2Line } from 'react-icons/ri';
 import NewItemModal from './TasksItemModal';
+import { imagesItems } from '../../../utils/itemsImageImporter';
 
 export function RenderEditTaskItems({ items, taskId }) {
   const [addItem, setAddItem] = useState(false);
@@ -41,7 +42,7 @@ function RenderTaskItem({ item }) {
   return (
     <ItemContainer colors={userTheme.palette}>
       <ItemImage colors={rarityDict[item.itemInfo.rarity]}>
-        <img src={'https://pbs.twimg.com/media/Eo4s9lHXUAARCt4.png'} alt={'item'} />
+        <img src={imagesItems.valberry} alt={'item'} />
       </ItemImage>
       <ItemInfo>
         <div>{item.itemInfo.name}</div>
@@ -74,19 +75,6 @@ function RenderTaskItem({ item }) {
 
 function handleDeleteItem(item) {
   //console.log('deleting item');
-  toast('deleting item');
+  toast('Deleting item');
   //possible easier if async delete
-}
-
-function NewItemForms({ setNewItem, setAddItem }) {
-  //to append item it's possibly easier if done async
-
-  return (
-    <>
-      <div>
-        <div>This is where you add a new item</div>
-        <div onClick={() => setAddItem(false)}>cancel</div>
-      </div>
-    </>
-  );
 }
