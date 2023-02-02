@@ -1,11 +1,13 @@
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useSetTheme, useTheme } from '../../../hooks/useTheme';
-import { TaskContainer, TaskDates, TaskDays, TaskImage, TaskInfoContainer, TaskTitle } from './TasksStyles';
+import { TaskContainer, TaskDates, TaskDays, TaskImage, TaskInfoContainer, TaskTitle } from '../Tasks/TasksStyles';
 
-export function RenderTasks({ task, setTaskToMod, setPageState, windowWidth }) {
+export function RenderHomeTasks({ task, windowWidth }) {
   const theme = useTheme();
   const setTheme = useSetTheme();
+  const navigate = useNavigate();
   const [userTheme, setUserTheme] = [theme, setTheme];
   const [daysText, setDaysText] = useState('Loading...');
 
@@ -22,8 +24,8 @@ export function RenderTasks({ task, setTaskToMod, setPageState, windowWidth }) {
     <>
       <TaskContainer
         onClick={() => {
-          setTaskToMod(task);
-          setPageState('edit');
+          //redirect to this task
+          //store taskId on localStorage and navigate to /tasks
         }}
         palette={userTheme.palette}
       >

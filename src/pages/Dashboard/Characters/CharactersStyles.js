@@ -66,8 +66,8 @@ export const CharactersList = styled.div`
   align-items: self-start;
 
   gap: 5px;
-  margin: 15px 0 5% 0;
-  height: 100%;
+  //margin: 15px 0 0 0;
+  height: 90%;
   overflow-y: scroll;
 
   > img {
@@ -237,6 +237,7 @@ export const TalentsContainer = styled.div`
 
 export const IndividualTalent = styled.div``;
 
+//${(props) => (props.colors ? props.colors : 'none')};
 export const TalentInfo = styled.div`
   display: flex;
   align-items: center;

@@ -116,7 +116,7 @@ export function CharAddingMain({ characterToAdd, setCharacterToAdd, setPageState
                   </TalentInfo>
                 </IndividualTalent>
                 <IndividualTalent>
-                  <TalentInfo color={colorsDict[characterToAdd.elementId]}>
+                  <TalentInfo colors={colorsDict[characterToAdd.elementId]}>
                     <img src={charTalentsImages.talents.skill} alt={'Normal attack'} />
                     <div>Skill</div>
                     <div>
@@ -139,7 +139,7 @@ export function CharAddingMain({ characterToAdd, setCharacterToAdd, setPageState
                   </TalentInfo>
                 </IndividualTalent>
                 <IndividualTalent>
-                  <TalentInfo color={colorsDict[characterToAdd.elementId]}>
+                  <TalentInfo colors={colorsDict[characterToAdd.elementId]}>
                     <img src={charTalentsImages.talents.burst} alt={'Normal attack'} />
                     <div>Burst</div>
                     <div>
