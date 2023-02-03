@@ -115,7 +115,7 @@ export const CardName = styled.div`
 
 export const CardImage = styled.div`
   img {
-    background-color: ${(props) => (props.color ? props.color : '#d95538')};
+    background-color: ${(props) => (props.colors ? props.colors : '#d95538')};
     border-radius: 100%;
   }
 `;
@@ -306,6 +306,7 @@ export const EditCharacterContainer = styled.div`
   margin-top: 10px;
 `;
 
+//${(props) => (props.colors ? props.colors : 'none')};
 export const EditCharacterImage = styled.div`
   width: 50%;
   display: flex;
@@ -320,7 +321,6 @@ export const EditCharacterImage = styled.div`
     border-radius: 15px;
     object-fit: cover;
     object-position: top;
-    mix-blend-mode: multiply;
     height: 50%;
     max-width: 75%;
     max-height: 50%;

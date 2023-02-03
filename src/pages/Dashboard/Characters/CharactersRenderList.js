@@ -27,7 +27,7 @@ export function InitialRenderImages({ arrayChars, elements, setPageState, setCha
         }}
       >
         <CardName>{char.name}</CardName>
-        <CardImage color={colorsDict[char.elementId]}>
+        <CardImage colors={colorsDict[char.elementId]}>
           <img src={char.imageFace} alt={`${char.name} img`} />
         </CardImage>
         <CardInfo>
@@ -66,7 +66,7 @@ export function AddRenderImages({ arrayChars, elements, setPageState, setCharToA
         }}
       >
         <CardName>{char.name}</CardName>
-        <CardImage color={colorsDict[char.elementId]}>
+        <CardImage colors={colorsDict[char.elementId]}>
           <img src={char.imageFace} alt={`${char.name} img`} />
         </CardImage>
       </CharacterCard>

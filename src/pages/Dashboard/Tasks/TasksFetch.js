@@ -1,3 +1,81 @@
+import { getAllItems, getUserTasks, postNewTask } from '../../../services/services';
+
+export async function fetchUserTasks(userToken) {
+  let allTasks = [];
+  let token = userToken;
+
+  if (!userToken) {
+    token = localStorage.getItem('token');
+  }
+
+  const response = await getUserTasks(token);
+
+  if (response.tasks) {
+    const fixedTasks = [];
+    for (let i = 0; i < response.tasks.length; i++) {
+      const daysInfo = AddFullListOfDays(response.tasks[i]);
+      fixedTasks.push({
+        ...response.tasks[i],
+        daysInfo: {
+          text: daysInfo[0],
+          listDays: daysInfo[1],
+        },
+      });
+    }
+    return [...fixedTasks];
+  } else {
+    return [];
+  }
+}
+
+export async function fetchItems(userToken) {
+  let token = userToken;
+  if (!token) {
+    token = localStorage.getItem('token');
+  }
+
+  const response = await getAllItems(token);
+  if (!response.message) {
+    localStorage.setItem('items', JSON.stringify(response));
+  }
+
+  return true;
+}
+
+export async function createNewTask(userToken, newTaskInfo) {
+  let token = userToken;
+  if (!token) {
+    token = localStorage.getItem('token');
+  }
+
+  const fixedBody = {
+    name: newTaskInfo.name,
+    image: newTaskInfo.image,
+  };
+
+  const fixedItems = [];
+
+  const items = newTaskInfo.items;
+  for (let i = 0; i < items.length; i++) {
+    const fixedItem = {
+      weeklyBossMat: items[i].weeklyBossMat,
+      bossMat: items[i].bossMat,
+      dungeonMat: items[i].dungeonMat,
+      enemyMat: items[i].enemyMat,
+      localSpecialty: items[i].localSpecialty,
+      itemId: items[i].itemId,
+      quantity: items[i].quantity,
+    };
+    fixedItems.push(fixedItem);
+  }
+
+  fixedBody.items = fixedItems;
+
+  const response = await postNewTask(token, fixedBody);
+
+  return response;
+}
+
 export function UseMockedTasks() {
   const fixedTasks = [];
   for (let i = 0; i < mockedTasks.length; i++) {
@@ -14,6 +92,8 @@ export function UseMockedTasks() {
 }
 
 function AddFullListOfDays(task) {
+  //console.log(task);
+
   const daysDict = {
     monday: ['Monday', 'Thursday', 'Sunday'],
     tuesday: ['Tuesday', 'Friday', 'Sunday'],

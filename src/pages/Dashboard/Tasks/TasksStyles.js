@@ -54,6 +54,7 @@ export const DropdownAnchor = styled.div`
 
   > div {
     margin-left: 20px;
+    text-align: center;
   }
 `;
 
@@ -78,7 +79,7 @@ export const Dropdown = styled.div`
 
   div {
     font-size: 24px;
-    height: 40px;
+    height: 55px;
   }
 `;
 
@@ -133,6 +134,7 @@ export const TaskImage = styled.div`
   img {
     height: 100%;
     width: 160px;
+    display: block;
     object-fit: cover;
     border-radius: 20px;
   }
@@ -213,7 +215,7 @@ export const EditButtonsContainer = styled.div`
 `;
 
 export const UpdateButton = styled.div`
-  background: #00b88f;
+  background: ${(props) => (props.valid ? '#00b88f' : '#c7d6d5')};
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 `;
 
@@ -369,6 +371,95 @@ export const ModalHeader = styled.div`
   justify-content: space-between;
 
   font-size: 24px;
+`;
+
+export const ItemsContainer = styled.div`
+  height: 90%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  gap: 5px;
+  justify-items: center;
+  align-items: self-start;
+  text-align: center;
+
+  @media (max-width: 1500px) {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+
+  @media (max-width: 1045px) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  @media (max-width: 800px) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  overflow-y: scroll;
+`;
+
+export const ModalItemContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  height: 150px;
+  width: 150px;
+
+  margin-top: 10px;
+  border: 1px solid black;
+  border-radius: 15px;
+
+  img {
+    background-color: ${(props) => props.colors};
+    height: 100px;
+    width: 100px;
+    border-radius: 15px;
+  }
+`;
+
+export const ModalItemTitle = styled.div`
+  height: 40px;
+  width: 90%;
+`;
+
+export const CreateButton = styled.div`
+  background: ${(props) => (props.valid ? '#00b88f' : '#c7d6d5')};
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+`;
+
+export const AddButtomContainer = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: ${(props) => (props.switchToColumn ? 'column' : 'none')};
+
+  font-family: 'Inter', arial;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 29px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+
+  color: #000000;
+
+  margin: 30px 0 30px 0;
+
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 66px;
+    width: 240px;
+
+    margin-bottom: ${(props) => (props.switchToColumn ? '20px' : 'none')};
+
+    border-radius: 20px;
+  }
 `;
 
 //

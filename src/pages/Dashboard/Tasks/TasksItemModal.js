@@ -6,24 +6,35 @@ import {
   AddItemButtom,
   Dropdown,
   DropdownAnchor,
+  ItemsContainer,
   ModalContainer,
   ModalHeader,
+  ModalItemContainer,
+  ModalItemTitle,
   TasksHeaderButtons,
 } from './TasksStyles';
 import { useSetTheme, useTheme } from '../../../hooks/useTheme';
 import { IoAddCircleOutline } from 'react-icons/io5';
 import { AiOutlineMenu } from 'react-icons/ai';
+import { imagesItems } from '../../../utils/itemsImageImporter';
 
-export default function NewItemModal({ taskId }) {
+export default function NewItemModal({ taskId, setNewTaskInfo, newTaskInfo }) {
+  const items = JSON.parse(localStorage.getItem('items'));
   const theme = useTheme();
   const setTheme = useSetTheme();
   const [userTheme, setUserTheme] = [theme, setTheme];
+  const [allItems, setAllItems] = useState(items);
+  const [currentFilter, setCurrentFilter] = useState({ name: '' });
+  const [specificItems, setSpecificItems] = useState([
+    ...allItems.bossMats,
+    ...allItems.dungeonMats,
+    ...allItems.enemyMats,
+    ...allItems.localSpecialty,
+    ...allItems.weeklyBossMats,
+  ]);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
-  //console.log();
-  //THIS IS WHERE I NEED TO FETCH ITEMS FROM THE API
 
   const style = {
     position: 'absolute',
@@ -35,6 +46,8 @@ export default function NewItemModal({ taskId }) {
     boxShadow: 24,
     p: 4,
   };
+
+  //console.log(specificItems);
 
   return (
     <div>
@@ -52,19 +65,24 @@ export default function NewItemModal({ taskId }) {
         <ModalContainer theme={userTheme.palette}>
           <Box sx={style}>
             <ModalHeader>
-              <div onClick={handleClose}>Pick an item</div>
+              <div onClick={handleClose}>Pick an item {currentFilter.name}</div>
               <TasksHeaderButtons>
                 <div>
-                  <FilterMenuItemsModal />
+                  <FilterMenuItemsModal
+                    currentFilter={currentFilter}
+                    setCurrentFilter={setCurrentFilter}
+                    allItems={allItems}
+                    setSpecificItems={setSpecificItems}
+                  />
                 </div>
               </TasksHeaderButtons>
             </ModalHeader>
-            <div>
-              <div>Item 1</div>
-              <div>Item 1</div>
-              <div>Item 1</div>
-              <div>Item 1</div>
-            </div>
+            <RenderItemsInsideModal
+              newTaskInfo={newTaskInfo}
+              setNewTaskInfo={setNewTaskInfo}
+              itemsToRender={specificItems}
+              handleClose={handleClose}
+            />
           </Box>
         </ModalContainer>
       </Modal>
@@ -72,9 +90,9 @@ export default function NewItemModal({ taskId }) {
   );
 }
 
-export function FilterMenuItemsModal() {
+export function FilterMenuItemsModal({ allItems, setSpecificItems, currentFilter, setCurrentFilter }) {
   const [open, setOpen] = useState(false);
-  const wrapperRef = useRef(null);
+  const wrapperRef = useRef('');
 
   //fetch all items
   //import the images
@@ -82,21 +100,150 @@ export function FilterMenuItemsModal() {
 
   const filterOptions = [
     {
-      name: 'Filter option 1',
+      name: 'Weekly Boss Items',
       function: () => {
-        console.log('filter');
+        if (currentFilter.name === '(weekly)') {
+          setCurrentFilter({ name: '' });
+          setSpecificItems([
+            ...allItems.bossMats,
+            ...allItems.dungeonMats,
+            ...allItems.enemyMats,
+            ...allItems.localSpecialty,
+            ...allItems.weeklyBossMats,
+          ]);
+        } else {
+          setCurrentFilter({ name: '(weekly)' });
+          setSpecificItems([...allItems.weeklyBossMats]);
+        }
+        //console.log('filter');
       },
     },
     {
-      name: 'Filter option 2',
+      name: 'Boss Items',
       function: () => {
-        console.log('filter');
+        if (currentFilter.name === '(boss)') {
+          setCurrentFilter({ name: '' });
+          setSpecificItems([
+            ...allItems.bossMats,
+            ...allItems.dungeonMats,
+            ...allItems.enemyMats,
+            ...allItems.localSpecialty,
+            ...allItems.weeklyBossMats,
+          ]);
+        } else {
+          setCurrentFilter({ name: '(boss)' });
+          setSpecificItems([...allItems.bossMats]);
+        }
+        //console.log('filter');
       },
     },
     {
-      name: 'Filter option 3',
+      name: 'Dungeon Items',
       function: () => {
-        console.log('filter');
+        if (currentFilter.name === '(dungeon)') {
+          setCurrentFilter({ name: '' });
+          setSpecificItems([
+            ...allItems.bossMats,
+            ...allItems.dungeonMats,
+            ...allItems.enemyMats,
+            ...allItems.localSpecialty,
+            ...allItems.weeklyBossMats,
+          ]);
+        } else {
+          setCurrentFilter({ name: '(dungeon)' });
+          setSpecificItems([...allItems.dungeonMats]);
+        }
+        //console.log('filter');
+      },
+    },
+    {
+      name: 'Enemy Items',
+      function: () => {
+        if (currentFilter.name === '(enemy)') {
+          setCurrentFilter({ name: '' });
+          setSpecificItems([
+            ...allItems.bossMats,
+            ...allItems.dungeonMats,
+            ...allItems.enemyMats,
+            ...allItems.localSpecialty,
+            ...allItems.weeklyBossMats,
+          ]);
+        } else {
+          setCurrentFilter({ name: '(enemy)' });
+          setSpecificItems([...allItems.enemyMats]);
+        }
+        //console.log('filter');
+      },
+    },
+    {
+      name: 'Local Specialty',
+      function: () => {
+        if (currentFilter.name === '(local)') {
+          setCurrentFilter({ name: '' });
+          setSpecificItems([
+            ...allItems.bossMats,
+            ...allItems.dungeonMats,
+            ...allItems.enemyMats,
+            ...allItems.localSpecialty,
+            ...allItems.weeklyBossMats,
+          ]);
+        } else {
+          setCurrentFilter({ name: '(local)' });
+          setSpecificItems([...allItems.localSpecialty]);
+        }
+        //console.log('filter');
+      },
+    },
+    {
+      name: 'A-Z',
+      function: () => {
+        if (currentFilter.name === '(A-Z)') {
+          setCurrentFilter({ name: '' });
+          setSpecificItems([
+            ...allItems.bossMats,
+            ...allItems.dungeonMats,
+            ...allItems.enemyMats,
+            ...allItems.localSpecialty,
+            ...allItems.weeklyBossMats,
+          ]);
+        } else {
+          setCurrentFilter({ name: '(A-Z)' });
+          const sortedList = [
+            ...allItems.bossMats,
+            ...allItems.dungeonMats,
+            ...allItems.enemyMats,
+            ...allItems.localSpecialty,
+            ...allItems.weeklyBossMats,
+          ].sort((a, b) => a.name.localeCompare(b.name));
+          setSpecificItems(sortedList);
+        }
+        //console.log('filter');
+      },
+    },
+    {
+      name: 'Z-A',
+      function: () => {
+        if (currentFilter.name === '(Z-A)') {
+          setCurrentFilter({ name: '' });
+          setSpecificItems([
+            ...allItems.bossMats,
+            ...allItems.dungeonMats,
+            ...allItems.enemyMats,
+            ...allItems.localSpecialty,
+            ...allItems.weeklyBossMats,
+          ]);
+        } else {
+          setCurrentFilter({ name: '(Z-A)' });
+          const sortedList = [
+            ...allItems.bossMats,
+            ...allItems.dungeonMats,
+            ...allItems.enemyMats,
+            ...allItems.localSpecialty,
+            ...allItems.weeklyBossMats,
+          ].sort((a, b) => b.name.localeCompare(a.name));
+          setSpecificItems(sortedList);
+        }
+        //console.log('filter');
       },
     },
   ];
@@ -163,6 +310,59 @@ export function FilterMenuDropdown({ filterOptions }) {
           );
         })}
       </Dropdown>
+    </>
+  );
+}
+
+function RenderItemsInsideModal({ handleClose, newTaskInfo, setNewTaskInfo, itemsToRender }) {
+  const rarityDict = {
+    1: '#8B949F',
+    2: '#82CD47',
+    3: '#8DBFE0',
+    4: '#a8a0db',
+    5: '#F6D860',
+  };
+
+  return (
+    <>
+      <ItemsContainer>
+        {itemsToRender.map((item, index) => {
+          if (item.name !== 'none') {
+            return (
+              <ModalItemContainer
+                onClick={() => {
+                  const updatedItems = newTaskInfo.items;
+                  const newItem = {
+                    weeklyBossMat: item.weeklyBossMat ? true : false,
+                    bossMat: item.bossMat ? true : false,
+                    dungeonMat: item.dungeonMat ? true : false,
+                    enemyMat: item.enemyMat ? true : false,
+                    localSpecialty: item.localSpecialty ? true : false,
+                    weaponMat: false,
+                    itemId: item.id,
+                    quantity: 1,
+                    itemInfo: {
+                      name: item.name,
+                      image: imagesItems[item.key],
+                      key: item.key,
+                      rarity: item.rarity,
+                    },
+                  };
+
+                  updatedItems.push(newItem);
+                  setNewTaskInfo({ ...newTaskInfo, items: updatedItems });
+                  handleClose();
+                }}
+                colors={rarityDict[item.rarity]}
+                key={index}
+              >
+                <ModalItemTitle>{item.name}</ModalItemTitle>
+                <img src={imagesItems[item.key]} alt={item.name} />
+              </ModalItemContainer>
+            );
+          }
+        })}
+      </ItemsContainer>
     </>
   );
 }

@@ -34,13 +34,13 @@ export function CharEditMain({ characterToEdit, setCharacterToEdit, setPageState
     userCharacterId: characterToEdit.id,
     characterId: characterToEdit.characterId,
     level: characterToEdit.level,
-    friendship: characterToEdit.talents[0].value,
+    friendship: characterToEdit.friendship,
     talents: {
       normal: characterToEdit.talents[0].value,
       skill: characterToEdit.talents[1].value,
       burst: characterToEdit.talents[2].value,
     },
-    constellations: characterToEdit.constellations.length,
+    constellations: characterToEdit.constellations[0].value,
   });
 
   useEffect(() => {
@@ -89,7 +89,7 @@ export function CharEditMain({ characterToEdit, setCharacterToEdit, setPageState
         </CharactersHeader>
         <EditCharacterOuterContainer>
           <EditCharacterContainer>
-            <EditCharacterImage color={colorsDict[characterToEdit.elementId]}>
+            <EditCharacterImage colors={colorsDict[characterToEdit.elementId]}>
               <img src={characterToEdit.imageSplashArt} alt={`${characterToEdit.name}`} />
             </EditCharacterImage>
             <EditForms>
