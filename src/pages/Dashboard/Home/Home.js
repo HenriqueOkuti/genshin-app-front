@@ -12,6 +12,7 @@ import {
 } from './HomeStyles';
 import { AiOutlineMenu } from 'react-icons/ai';
 import { RenderHomeTasks } from './HomeTasks';
+import { fetchUserTasksToday } from './HomeFetch';
 
 export function HomeManager() {
   const userTheme = useTheme();
@@ -19,6 +20,19 @@ export function HomeManager() {
   const [token, setToken] = useState(tokenHook);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [dailyTasks, setDailyTasks] = useState([]);
+
+  useEffect(async () => {
+    let tokenAux;
+    if (!token) {
+      tokenAux = localStorage.getItem('token');
+      setToken(tokenAux);
+    }
+
+    const response = await fetchUserTasksToday(token);
+
+    setDailyTasks([]);
+    setDailyTasks([...response]);
+  }, []);
 
   useEffect(() => {
     //Handles width of screen
@@ -31,14 +45,14 @@ export function HomeManager() {
       <>
         <AuxContainer>
           <HomeHeader>
-            <div>Home</div>
+            <div>What can you do today?</div>
             <HomeHeaderButtons>
               <div>
                 <FilterMenuHome />
               </div>
             </HomeHeaderButtons>
           </HomeHeader>
-          {dailyTasks[0] ? <RenderHomeTasks /> : <EmptyTasks />}
+          {dailyTasks[0] ? <RenderDailyTasks tasks={dailyTasks} windowWidth={windowWidth} /> : <EmptyTasks />}
         </AuxContainer>
       </>
     );
@@ -48,14 +62,14 @@ export function HomeManager() {
       <>
         <AuxContainer>
           <HomeHeader>
-            <div>Home</div>
+            <div>What can you do today?</div>
             <HomeHeaderButtons>
               <div>
                 <FilterMenuHome />
               </div>
             </HomeHeaderButtons>
           </HomeHeader>
-          {dailyTasks[0] ? <RenderHomeTasks /> : <EmptyTasks />}
+          {dailyTasks[0] ? <RenderDailyTasks tasks={dailyTasks} windowWidth={windowWidth} /> : <EmptyTasks />}
         </AuxContainer>
       </>
     );
@@ -161,4 +175,14 @@ function EmptyTasks() {
       </EmptyTasksContainer>
     </>
   );
+}
+
+function RenderDailyTasks({ tasks, windowWidth }) {
+  return tasks.map((task) => {
+    return (
+      <>
+        <RenderHomeTasks task={task} windowWidth={windowWidth} />
+      </>
+    );
+  });
 }

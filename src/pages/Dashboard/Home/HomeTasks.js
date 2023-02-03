@@ -11,8 +11,8 @@ export function RenderHomeTasks({ task, windowWidth }) {
   const [userTheme, setUserTheme] = [theme, setTheme];
   const [daysText, setDaysText] = useState('Loading...');
 
-  const createdAt = dayjs(task.createdAt).format('MM/DD/YY');
-  const updatedAt = dayjs(task.updatedAt).format('MM/DD/YY');
+  const createdAt = dayjs(JSON.parse(task.createdAt)).format('MM/DD/YY');
+  const updatedAt = dayjs(JSON.parse(task.updatedAt)).format('MM/DD/YY');
 
   useEffect(() => {
     setDaysText(task.daysInfo.text);

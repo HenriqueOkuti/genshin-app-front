@@ -1,6 +1,7 @@
+import dayjs from 'dayjs';
 import { getAllItems, getUserTasks, postNewTask } from '../../../services/services';
 
-export async function fetchUserTasks(userToken) {
+export async function fetchUserTasksToday(userToken) {
   let allTasks = [];
   let token = userToken;
 
@@ -11,69 +12,40 @@ export async function fetchUserTasks(userToken) {
   const response = await getUserTasks(token);
 
   if (response.tasks) {
+    const daysDictionary = {
+      0: 'Sunday',
+      1: 'Monday',
+      2: 'Tuesday',
+      3: 'Wednesday',
+      4: 'Thursday',
+      5: 'Friday',
+      6: 'Saturday',
+    };
+
+    //console.log('filtering for today');
     const fixedTasks = [];
     for (let i = 0; i < response.tasks.length; i++) {
       const daysInfo = AddFullListOfDays(response.tasks[i]);
-      fixedTasks.push({
-        ...response.tasks[i],
-        daysInfo: {
-          text: daysInfo[0],
-          listDays: daysInfo[1],
-        },
-      });
+      const today = daysDictionary[dayjs().day()];
+
+      //console.log(today);
+      //console.log(daysInfo[0]);
+      //console.log(daysInfo[0].includes(today) || daysInfo[0].includes('Any'));
+      if (daysInfo[0].includes(today) || daysInfo[0].includes('Any')) {
+        fixedTasks.push({
+          ...response.tasks[i],
+          daysInfo: {
+            text: daysInfo[0],
+            listDays: daysInfo[1],
+          },
+        });
+      }
     }
+
     return [...fixedTasks];
   } else {
     return [];
   }
-}
-
-export async function fetchItems(userToken) {
-  let token = userToken;
-  if (!token) {
-    token = localStorage.getItem('token');
-  }
-
-  const response = await getAllItems(token);
-  if (!response.message) {
-    localStorage.setItem('items', JSON.stringify(response));
-  }
-
-  return true;
-}
-
-export async function createNewTask(userToken, newTaskInfo) {
-  let token = userToken;
-  if (!token) {
-    token = localStorage.getItem('token');
-  }
-
-  const fixedBody = {
-    name: newTaskInfo.name,
-    image: newTaskInfo.image,
-  };
-
-  const fixedItems = [];
-
-  const items = newTaskInfo.items;
-  for (let i = 0; i < items.length; i++) {
-    const fixedItem = {
-      weeklyBossMat: items[i].weeklyBossMat,
-      bossMat: items[i].bossMat,
-      dungeonMat: items[i].dungeonMat,
-      enemyMat: items[i].enemyMat,
-      localSpecialty: items[i].localSpecialty,
-      itemId: items[i].itemId,
-      quantity: items[i].quantity,
-    };
-    fixedItems.push(fixedItem);
-  }
-
-  fixedBody.items = fixedItems;
-
-  const response = await postNewTask(token, fixedBody);
-
-  return response;
 }
 
 function AddFullListOfDays(task) {
