@@ -134,6 +134,7 @@ export const TaskImage = styled.div`
   img {
     height: 100%;
     width: 160px;
+    display: block;
     object-fit: cover;
     border-radius: 20px;
   }
@@ -214,7 +215,7 @@ export const EditButtonsContainer = styled.div`
 `;
 
 export const UpdateButton = styled.div`
-  background: #00b88f;
+  background: ${(props) => (props.valid ? '#00b88f' : '#c7d6d5')};
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 `;
 

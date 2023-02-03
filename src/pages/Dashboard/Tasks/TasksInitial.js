@@ -5,26 +5,24 @@ import { HandleRedirectButton } from './TasksRedirect';
 import { RenderTasks } from './TasksRenderList';
 import { AuxContainer, Dropdown, DropdownAnchor, TasksHeader, TasksHeaderButtons, TasksList } from './TasksStyles';
 
-export function TasksInitialMain({ userTasks, setTaskToMod, setPageState, windowWidth }) {
+export function TasksInitialMain({ userTasks, setTaskToMod, setPageState, windowWidth, setFetchAgain, fetchAgain }) {
   const [filterType, setFilterType] = useState({ name: null });
   const [updatedFilter, setUpdatedFilter] = useState(false);
   const [suppText, setSuppText] = useState('');
-  const [filteredChars, setFilteredChars] = useState([...userTasks]);
-
-  //console.log(userTasks);
+  const [filteredTasks, setFilteredTasks] = useState([...userTasks]);
 
   return (
     <>
       <AuxContainer>
         <TasksHeader>
-          <div>User tasks</div>
+          <div onClick={() => setFetchAgain(!fetchAgain)}>User tasks</div>
           <TasksHeaderButtons>
             <div>
               <HandleRedirectButton pageState={'initial'} setPageState={setPageState} />
             </div>
-            <div>
+            {/* <div>
               <FilterMenuInitial />
-            </div>
+            </div> */}
           </TasksHeaderButtons>
         </TasksHeader>
         <TasksList>

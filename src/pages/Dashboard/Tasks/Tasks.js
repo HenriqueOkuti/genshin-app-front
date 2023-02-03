@@ -31,10 +31,14 @@ export function TasksManager() {
     }
 
     const response = await fetchUserTasks(token);
-    //console.log(response);
-
-    setUserTasks(response);
-  }, [pageState]);
+    //console.log(userTasks);
+    setUserTasks([]);
+    setUserTasks([...response]);
+    //console.log(userTasks);
+    if (pageState === 'loading') {
+      setPageState('initial');
+    }
+  }, [pageState, taskToMod, fetchAgain]);
 
   useEffect(() => {
     //Handles width of screen
@@ -44,10 +48,12 @@ export function TasksManager() {
   useEffect(() => {
     if (taskToMod) {
       setPageState('edit');
+    } else {
+      setFetchAgain(!fetchAgain);
     }
   }, [taskToMod]);
 
-  console.log(userTasks);
+  //console.log(pageState);
 
   if (windowWidth > 700) {
     //Render main version
@@ -59,6 +65,8 @@ export function TasksManager() {
           setTaskToMod={setTaskToMod}
           setPageState={setPageState}
           windowWidth={windowWidth}
+          setFetchAgain={setFetchAgain}
+          fetchAgain={fetchAgain}
         />
       );
     }
@@ -75,7 +83,15 @@ export function TasksManager() {
           setTaskToMod={setTaskToMod}
           setPageState={setPageState}
           windowWidth={windowWidth}
+          fetchAgain={fetchAgain}
+          setFetchAgain={setFetchAgain}
         />
+      );
+    } else {
+      return (
+        <>
+          <div>Something went wrong</div>
+        </>
       );
     }
   } else {

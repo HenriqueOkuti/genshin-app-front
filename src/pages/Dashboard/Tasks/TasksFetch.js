@@ -12,7 +12,6 @@ export async function fetchUserTasks(userToken) {
 
   if (response.tasks) {
     const fixedTasks = [];
-    console.log(response.tasks);
     for (let i = 0; i < response.tasks.length; i++) {
       const daysInfo = AddFullListOfDays(response.tasks[i]);
       fixedTasks.push({
@@ -23,8 +22,7 @@ export async function fetchUserTasks(userToken) {
         },
       });
     }
-
-    return fixedTasks;
+    return [...fixedTasks];
   } else {
     return [];
   }
@@ -40,6 +38,8 @@ export async function fetchItems(userToken) {
   if (!response.message) {
     localStorage.setItem('items', JSON.stringify(response));
   }
+
+  return true;
 }
 
 export async function createNewTask(userToken, newTaskInfo) {

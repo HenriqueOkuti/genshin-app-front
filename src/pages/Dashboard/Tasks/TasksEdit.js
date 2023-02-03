@@ -1,7 +1,7 @@
 import { TextField } from '@material-ui/core';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { deleteTask } from '../../../services/services';
+import { deleteTask, updateTask } from '../../../services/services';
 import { RenderEditTaskItems } from './TasksEditItems';
 import { HandleRedirectButton } from './TasksRedirect';
 import {
@@ -19,10 +19,19 @@ import {
   UpdateButton,
 } from './TasksStyles';
 
-export function TasksEditMain({ setPageState, setTaskToMod, taskToMod, windowWidth, token }) {
+export function TasksEditMain({
+  setPageState,
+  setTaskToMod,
+  taskToMod,
+  windowWidth,
+  token,
+  fetchAgain,
+  setFetchAgain,
+}) {
   const [newTaskInfo, setNewTaskInfo] = useState({ ...taskToMod });
   const [newImage, setNewImage] = useState('');
   const [validImage, setValidImage] = useState('original');
+  const [validData, setValidData] = useState(false);
 
   //console.log(newTaskInfo);
   //console.log(windowWidth);
@@ -52,6 +61,11 @@ export function TasksEditMain({ setPageState, setTaskToMod, taskToMod, windowWid
       setNewTaskInfo({ ...newTaskInfo, image: taskToMod.image });
     }
   }, [newImage]);
+
+  useEffect(() => {
+    //verify if data is valid
+    setValidData(verifyIfDataIsValid(newTaskInfo));
+  }, [newTaskInfo]);
 
   const alterButtomsToColumn = windowWidth < 990 ? true : false;
 
@@ -114,11 +128,16 @@ export function TasksEditMain({ setPageState, setTaskToMod, taskToMod, windowWid
               Delete
             </DeleteButton>
             <UpdateButton
+              valid={validData}
               onClick={() => {
-                const response = handleUpdate(token, taskToMod, newTaskInfo);
-                if (response) {
-                  //setTaskToMod(null);
-                  //setPageState('initial');
+                if (validData) {
+                  const response = handleUpdate(token, taskToMod, newTaskInfo);
+                  if (response) {
+                    setTaskToMod(null);
+                    localStorage.removeItem('items');
+                    setFetchAgain(!fetchAgain);
+                    setPageState('initial');
+                  }
                 }
               }}
             >
@@ -161,8 +180,43 @@ async function handleDelete(token, task) {
 }
 
 async function handleUpdate(token, oldTask, newTask) {
-  toast('updating task');
-  return true;
+  const fixedItems = [];
+  let taskId = 0;
+  for (let i = 0; i < newTask.items.length; i++) {
+    const item = newTask.items[i];
+    taskId = item.taskId;
+
+    fixedItems.push({
+      id: item.id,
+      weeklyBossMat: item.weeklyBossMat,
+      bossMat: item.bossMat,
+      dungeonMat: item.dungeonMat,
+      enemyMat: item.enemyMat,
+      localSpecialty: item.localSpecialty,
+      taskId: newTask.id,
+      itemId: item.itemId,
+      quantity: item.quantity,
+    });
+  }
+
+  const body = {
+    userId: newTask.userId,
+    name: newTask.name,
+    taskId: taskId,
+    createdAt: JSON.parse(newTask.createdAt),
+    updatedAt: JSON.parse(newTask.updatedAt),
+    image: newTask.image,
+    items: fixedItems,
+  };
+
+  const response = await updateTask(token, body);
+  if (response === 'OK') {
+    toast('Updated task');
+    return true;
+  }
+  return false;
+  //
+  //
 }
 
 async function verifyURL(url) {
@@ -172,4 +226,23 @@ async function verifyURL(url) {
     img.onerror = () => resolve(false);
     img.onload = () => resolve(true);
   });
+}
+
+function verifyIfDataIsValid(taskData) {
+  if (!taskData.name || taskData.name === '') {
+    return false;
+  }
+  if (!taskData.image || taskData.image === '') {
+    return false;
+  }
+  if (taskData.items.length === 0) {
+    return false;
+  }
+  for (let i = 0; i < taskData.items.length; i++) {
+    if (taskData.items[i].quantity < 1 || taskData.items[i].quantity >= 9999) {
+      return false;
+    }
+  }
+
+  return true;
 }
