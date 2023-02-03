@@ -4,7 +4,7 @@ import useToken from '../../../hooks/useToken';
 import { useWindowWidth } from '../../../hooks/useWindowWidth';
 import { TasksAddMain, TasksAddMobile } from './TasksAdd';
 import { TasksEditMain, TasksEditMobile } from './TasksEdit';
-import { UseMockedTasks } from './TasksFetch';
+import { fetchItems, fetchUserTasks, UseMockedTasks } from './TasksFetch';
 import { TasksInitialMain, TasksInitialMobile } from './TasksInitial';
 
 export function TasksManager() {
@@ -20,10 +20,16 @@ export function TasksManager() {
 
   const [fetchAgain, setFetchAgain] = useState(false);
 
-  useEffect(() => {
+  useEffect(async () => {
     //fetches user tasks
-    setUserTasks(UseMockedTasks);
-  }, [fetchAgain]);
+    if (!localStorage.getItem('items')) {
+      await fetchItems(token);
+    }
+
+    const response = await fetchUserTasks(token);
+
+    setUserTasks(response);
+  }, []);
 
   useEffect(() => {
     //Handles width of screen
@@ -53,7 +59,7 @@ export function TasksManager() {
     }
     if (pageState === 'add') {
       //Render all user tasks
-      return <TasksAddMain setPageState={setPageState} />;
+      return <TasksAddMain setPageState={setPageState} windowWidth={windowWidth} />;
     }
     if (pageState === 'edit') {
       //Render all user tasks

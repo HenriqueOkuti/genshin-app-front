@@ -1,3 +1,34 @@
+import { getAllItems, getUserTasks } from '../../../services/services';
+
+export async function fetchUserTasks(userToken) {
+  let allTasks = [];
+  let token = userToken;
+
+  if (!userToken) {
+    token = localStorage.getItem('token');
+  }
+
+  const response = await getUserTasks(token);
+
+  if (response.tasks) {
+    return response.tasks;
+  } else {
+    return [];
+  }
+}
+
+export async function fetchItems(userToken) {
+  let token = userToken;
+  if (!token) {
+    token = localStorage.getItem('token');
+  }
+
+  const response = await getAllItems(token);
+  if (!response.message) {
+    localStorage.setItem('items', JSON.stringify(response));
+  }
+}
+
 export function UseMockedTasks() {
   const fixedTasks = [];
   for (let i = 0; i < mockedTasks.length; i++) {

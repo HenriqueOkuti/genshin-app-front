@@ -6,7 +6,7 @@ import { RiDeleteBack2Line } from 'react-icons/ri';
 import NewItemModal from './TasksItemModal';
 import { imagesItems } from '../../../utils/itemsImageImporter';
 
-export function RenderEditTaskItems({ items, taskId }) {
+export function RenderEditTaskItems({ items, taskId, setNewTaskInfo, newTaskInfo }) {
   const [addItem, setAddItem] = useState(false);
   const [newItem, setNewItem] = useState({});
 
@@ -17,7 +17,7 @@ export function RenderEditTaskItems({ items, taskId }) {
           <RenderTaskItem key={index} item={item} />
         ))}
       </div>
-      <NewItemModal taskId={taskId} />
+      <NewItemModal newTaskInfo={newTaskInfo} setNewTaskInfo={setNewTaskInfo} taskId={taskId} />
     </>
   );
 }
@@ -42,7 +42,7 @@ function RenderTaskItem({ item }) {
   return (
     <ItemContainer colors={userTheme.palette}>
       <ItemImage colors={rarityDict[item.itemInfo.rarity]}>
-        <img src={imagesItems.valberry} alt={'item'} />
+        <img src={imagesItems[item.itemInfo.key]} alt={'item'} />
       </ItemImage>
       <ItemInfo>
         <div>{item.itemInfo.name}</div>

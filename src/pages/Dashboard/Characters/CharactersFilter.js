@@ -39,7 +39,7 @@ export function filterCharacters(characters, filterType) {
   }
 
   if (filterType.name === 'Constellation') {
-    return characters.sort((a, b) => b.constellations.length - a.constellations.length);
+    return characters.sort((a, b) => b.constellations[0].value - a.constellations[0].value);
   }
   if (filterType.name === 'Level') {
     return characters.sort((a, b) => b.level - a.level);

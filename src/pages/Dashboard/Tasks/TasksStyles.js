@@ -54,6 +54,7 @@ export const DropdownAnchor = styled.div`
 
   > div {
     margin-left: 20px;
+    text-align: center;
   }
 `;
 
@@ -78,7 +79,7 @@ export const Dropdown = styled.div`
 
   div {
     font-size: 24px;
-    height: 40px;
+    height: 55px;
   }
 `;
 
@@ -369,6 +370,44 @@ export const ModalHeader = styled.div`
   justify-content: space-between;
 
   font-size: 24px;
+`;
+
+export const ItemsContainer = styled.div`
+  height: 90%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 5px;
+  justify-items: center;
+  align-items: self-start;
+  text-align: center;
+
+  overflow-y: scroll;
+`;
+
+export const ModalItemContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  height: 150px;
+  width: 150px;
+
+  margin-top: 10px;
+  border: 1px solid black;
+  border-radius: 15px;
+
+  img {
+    background-color: ${(props) => props.colors};
+    height: 100px;
+    width: 100px;
+    border-radius: 15px;
+  }
+`;
+
+export const ModalItemTitle = styled.div`
+  height: 40px;
+  width: 90%;
 `;
 
 //
