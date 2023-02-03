@@ -375,11 +375,23 @@ export const ModalHeader = styled.div`
 export const ItemsContainer = styled.div`
   height: 90%;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   gap: 5px;
   justify-items: center;
   align-items: self-start;
   text-align: center;
+
+  @media (max-width: 1500px) {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+
+  @media (max-width: 1045px) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  @media (max-width: 800px) {
+    grid-template-columns: 1fr 1fr;
+  }
 
   overflow-y: scroll;
 `;
@@ -408,6 +420,45 @@ export const ModalItemContainer = styled.div`
 export const ModalItemTitle = styled.div`
   height: 40px;
   width: 90%;
+`;
+
+export const CreateButton = styled.div`
+  background: ${(props) => (props.valid ? '#00b88f' : '#c7d6d5')};
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+`;
+
+export const AddButtomContainer = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: ${(props) => (props.switchToColumn ? 'column' : 'none')};
+
+  font-family: 'Inter', arial;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 29px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+
+  color: #000000;
+
+  margin: 30px 0 30px 0;
+
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 66px;
+    width: 240px;
+
+    margin-bottom: ${(props) => (props.switchToColumn ? '20px' : 'none')};
+
+    border-radius: 20px;
+  }
 `;
 
 //

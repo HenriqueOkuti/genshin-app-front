@@ -14,7 +14,13 @@ export function RenderEditTaskItems({ items, taskId, setNewTaskInfo, newTaskInfo
     <>
       <div>
         {items.map((item, index) => (
-          <RenderTaskItem key={index} item={item} />
+          <RenderTaskItem
+            key={index}
+            index={index}
+            newTaskInfo={newTaskInfo}
+            setNewTaskInfo={setNewTaskInfo}
+            item={item}
+          />
         ))}
       </div>
       <NewItemModal newTaskInfo={newTaskInfo} setNewTaskInfo={setNewTaskInfo} taskId={taskId} />
@@ -22,7 +28,7 @@ export function RenderEditTaskItems({ items, taskId, setNewTaskInfo, newTaskInfo
   );
 }
 
-function RenderTaskItem({ item }) {
+function RenderTaskItem({ item, index, newTaskInfo, setNewTaskInfo }) {
   const theme = useTheme();
   const setTheme = useSetTheme();
   const [userTheme, setUserTheme] = [theme, setTheme];
@@ -52,7 +58,10 @@ function RenderTaskItem({ item }) {
             onChange={(e) => {
               const value = +e.target.value;
               if (value > 0 && value <= 9999) {
-                setQuantity(value);
+                const newItem = { ...item, quantity: value };
+                const newItems = [...newTaskInfo.items];
+                newItems[index] = newItem;
+                setNewTaskInfo({ ...newTaskInfo, items: newItems });
               } else {
                 toast('Insert a correct value (max: 9999)');
               }
@@ -65,7 +74,7 @@ function RenderTaskItem({ item }) {
         </div>
       </ItemInfo>
       <ExcludeItemContainer>
-        <div onClick={() => handleDeleteItem(item)}>
+        <div onClick={() => handleDeleteItem(item, index, newTaskInfo, setNewTaskInfo)}>
           <RiDeleteBack2Line />
         </div>
       </ExcludeItemContainer>
@@ -73,8 +82,12 @@ function RenderTaskItem({ item }) {
   );
 }
 
-function handleDeleteItem(item) {
+function handleDeleteItem(item, index, newTaskInfo, setNewTaskInfo) {
   //console.log('deleting item');
   toast('Deleting item');
+  const itemList = [...newTaskInfo.items];
+  itemList.splice(index, 1);
+  setNewTaskInfo({ ...newTaskInfo, items: [...itemList] });
+
   //possible easier if async delete
 }

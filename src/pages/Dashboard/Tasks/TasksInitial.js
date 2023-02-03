@@ -43,19 +43,22 @@ export function TasksInitialMain({ userTasks, setTaskToMod, setPageState, window
   );
 }
 
-export function TasksInitialMobile() {
+export function TasksInitialMobile({ userTasks, setTaskToMod, setPageState, windowWidth }) {
   return (
     <>
       <AuxContainer>
         <TasksHeader>
           <div>User tasks mobile</div>
           <TasksHeaderButtons>
-            <div>Add</div>
+            <div>
+              <HandleRedirectButton pageState={'initial'} setPageState={setPageState} />
+            </div>
             <div>
               <FilterMenuInitial />
             </div>
           </TasksHeaderButtons>
         </TasksHeader>
+        <div>Soon™</div>
       </AuxContainer>
     </>
   );

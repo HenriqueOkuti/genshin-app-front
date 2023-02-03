@@ -1,6 +1,7 @@
 import { TextField } from '@material-ui/core';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import { deleteTask } from '../../../services/services';
 import { RenderEditTaskItems } from './TasksEditItems';
 import { HandleRedirectButton } from './TasksRedirect';
 import {
@@ -18,7 +19,7 @@ import {
   UpdateButton,
 } from './TasksStyles';
 
-export function TasksEditMain({ setPageState, setTaskToMod, taskToMod, windowWidth }) {
+export function TasksEditMain({ setPageState, setTaskToMod, taskToMod, windowWidth, token }) {
   const [newTaskInfo, setNewTaskInfo] = useState({ ...taskToMod });
   const [newImage, setNewImage] = useState('');
   const [validImage, setValidImage] = useState('original');
@@ -93,13 +94,19 @@ export function TasksEditMain({ setPageState, setTaskToMod, taskToMod, windowWid
               </div>
             </TaskInfoImage>
           </TaskEditInfoContainer>
-          <RenderEditTaskItems items={newTaskInfo.items} taskId={newTaskInfo.id} />
+          <RenderEditTaskItems
+            newTaskInfo={newTaskInfo}
+            setNewTaskInfo={setNewTaskInfo}
+            items={newTaskInfo.items}
+            taskId={newTaskInfo.id}
+          />
           <EditButtonsContainer switchToColumn={alterButtomsToColumn}>
             <DeleteButton
               onClick={() => {
-                const response = handleDelete();
+                const response = handleDelete(token, taskToMod);
                 if (response) {
                   setTaskToMod(null);
+                  localStorage.removeItem('items');
                   setPageState('initial');
                 }
               }}
@@ -108,10 +115,10 @@ export function TasksEditMain({ setPageState, setTaskToMod, taskToMod, windowWid
             </DeleteButton>
             <UpdateButton
               onClick={() => {
-                const response = handleUpdate();
+                const response = handleUpdate(token, taskToMod, newTaskInfo);
                 if (response) {
-                  setTaskToMod(null);
-                  setPageState('initial');
+                  //setTaskToMod(null);
+                  //setPageState('initial');
                 }
               }}
             >
@@ -136,17 +143,24 @@ export function TasksEditMobile({ setPageState, setTaskToMod, taskToMod }) {
             </div>
           </TasksHeaderButtons>
         </TasksHeader>
+        <div>Soon™</div>
       </AuxContainer>
     </>
   );
 }
 
-function handleDelete() {
-  toast('deleting task');
-  return true;
+async function handleDelete(token, task) {
+  const response = await deleteTask(token, task.id);
+
+  if (response === 'OK') {
+    toast('Deleted task');
+    return true;
+  } else {
+    return false;
+  }
 }
 
-function handleUpdate() {
+async function handleUpdate(token, oldTask, newTask) {
   toast('updating task');
   return true;
 }

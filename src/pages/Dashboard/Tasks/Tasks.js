@@ -22,14 +22,19 @@ export function TasksManager() {
 
   useEffect(async () => {
     //fetches user tasks
+    if (!token) {
+      setToken(localStorage.getItem('token'));
+    }
+
     if (!localStorage.getItem('items')) {
       await fetchItems(token);
     }
 
     const response = await fetchUserTasks(token);
+    //console.log(response);
 
     setUserTasks(response);
-  }, []);
+  }, [pageState]);
 
   useEffect(() => {
     //Handles width of screen
@@ -42,7 +47,7 @@ export function TasksManager() {
     }
   }, [taskToMod]);
 
-  //console.log(userTasks);
+  console.log(userTasks);
 
   if (windowWidth > 700) {
     //Render main version
@@ -59,12 +64,13 @@ export function TasksManager() {
     }
     if (pageState === 'add') {
       //Render all user tasks
-      return <TasksAddMain setPageState={setPageState} windowWidth={windowWidth} />;
+      return <TasksAddMain token={token} setPageState={setPageState} windowWidth={windowWidth} />;
     }
     if (pageState === 'edit') {
       //Render all user tasks
       return (
         <TasksEditMain
+          token={token}
           taskToMod={taskToMod}
           setTaskToMod={setTaskToMod}
           setPageState={setPageState}
