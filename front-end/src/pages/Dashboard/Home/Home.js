@@ -29,6 +29,7 @@ export function HomeManager() {
     }
 
     const response = await fetchUserTasksToday(token);
+    console.log(response);
 
     setDailyTasks([]);
     setDailyTasks([...response]);
@@ -48,7 +49,7 @@ export function HomeManager() {
             <div>What can you do today?</div>
             <HomeHeaderButtons>
               <div>
-                <FilterMenuHome />
+                <FilterMenuHome dailyTasks={dailyTasks} setDailyTasks={setDailyTasks} />
               </div>
             </HomeHeaderButtons>
           </HomeHeader>
@@ -65,7 +66,7 @@ export function HomeManager() {
             <div>What can you do today?</div>
             <HomeHeaderButtons>
               <div>
-                <FilterMenuHome />
+                <FilterMenuHome dailyTasks={dailyTasks} setDailyTasks={setDailyTasks} />
               </div>
             </HomeHeaderButtons>
           </HomeHeader>
@@ -76,19 +77,21 @@ export function HomeManager() {
   }
 }
 
-export function FilterMenuHome() {
+export function FilterMenuHome({ dailyTasks, setDailyTasks }) {
   const [open, setOpen] = useState(false);
   const wrapperRef = useRef(null);
 
+  console.log(dailyTasks);
+
   const filterOptions = [
     {
-      name: 'Filter option 1',
+      name: 'A-Z',
       function: () => {
         console.log('filter');
       },
     },
     {
-      name: 'Filter option 2',
+      name: 'Z-A',
       function: () => {
         console.log('filter');
       },
@@ -124,15 +127,21 @@ export function FilterMenuHome() {
   return (
     <>
       <div>
-        <div onClick={handleOpen}>
-          <AiOutlineMenu />
-        </div>
-        {open ? (
-          <DropdownAnchor ref={wrapperRef}>
-            <FilterMenuDropdown handleOpen={handleOpen} filterOptions={filterOptions} />
-          </DropdownAnchor>
+        {dailyTasks.length > 0 ? (
+          <>
+            <div onClick={handleOpen}>
+              <AiOutlineMenu />
+            </div>
+            {open ? (
+              <DropdownAnchor ref={wrapperRef}>
+                <FilterMenuDropdown handleOpen={handleOpen} filterOptions={filterOptions} />
+              </DropdownAnchor>
+            ) : (
+              <div></div>
+            )}
+          </>
         ) : (
-          <div></div>
+          <></>
         )}
       </div>
     </>
