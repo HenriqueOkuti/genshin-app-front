@@ -65,19 +65,19 @@ export function FilterMenuBackpack() {
     {
       name: 'Dont look here',
       function: () => {
-        console.log('filter');
+        //console.log('filter');
       },
     },
     {
       name: 'Feature not implemented yet',
       function: () => {
-        console.log('filter');
+        //console.log('filter');
       },
     },
     {
       name: 'Click away',
       function: () => {
-        console.log('filter');
+        //console.log('filter');
       },
     },
   ];

@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { AuthContainer, Background, Logo } from '../../layouts/layouts';
 import { OAuthLoader, Subtitle, Title } from './AuthenticationSharedStyles';
 import qs from 'query-string';
@@ -8,13 +8,16 @@ import LinearProgress from '@mui/material/LinearProgress';
 import Box from '@mui/material/Box';
 import { useWindowWidth } from '../../hooks/useWindowWidth';
 import { toast } from 'react-toastify';
+import { loginGoogle } from '../../services/services';
 
 export function OAuth() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { code } = qs.parseUrl(window.location.href).query;
   const [token, setToken] = useState(null);
   const [update, setUpdate] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const googleData = location.state;
 
   useEffect(() => {
     setToken(localStorage.getItem('token'));
@@ -24,7 +27,7 @@ export function OAuth() {
     navigate('/dashboard/home');
   }
 
-  if (!code) {
+  if (!code && !googleData) {
     navigate('/login');
   }
 
@@ -37,6 +40,18 @@ export function OAuth() {
           toast('Login unsuccesful');
         }
 
+        navigate('/login');
+      }
+    }
+
+    if (googleData) {
+      const response = await loginGoogle(googleData);
+      const token = response.token;
+      if (token) {
+        localStorage.setItem('token', token);
+        setUpdate(!update);
+      } else {
+        toast('Login unsuccesful');
         navigate('/login');
       }
     }

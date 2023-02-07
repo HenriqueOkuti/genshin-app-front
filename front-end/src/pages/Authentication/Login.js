@@ -24,6 +24,26 @@ import { useWindowWidth } from '../../hooks/useWindowWidth';
 import { toast } from 'react-toastify';
 import GitHubLogo from '../../assets/images/login/GitHub_Logo_White.png';
 import GitHubMark from '../../assets/images/login/github-mark-white.svg';
+import GoogleLogo from '../../assets/images/login/Google__G__Logo.svg';
+import jwt_decode from 'jwt-decode';
+import { getAuth, getRedirectResult, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+
+import { initializeApp } from 'firebase/app';
+
+const firebaseConfig = {
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
+};
+
+// Initialize Firebase
+const googleApp = initializeApp(firebaseConfig);
+const auth = getAuth(googleApp);
+const provider = new GoogleAuthProvider();
 
 export function Login() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -56,8 +76,11 @@ export function Login() {
         <Title>Login</Title>
         <Subtitle>Enter your credentials to access your account</Subtitle>
         <OAuthContainer>
-          <OAuthButton onClick={() => console.log('Google Auth')}>
-            <p>Google</p>
+          <OAuthButton onClick={() => handleLoginGoogle(navigate)}>
+            <div>
+              <OAuthLogo src={GoogleLogo} alt="Google Logo" />
+              <p>Sign in with Google</p>
+            </div>
           </OAuthButton>
           <OAuthButton color={'#171515'} fcolor={'#ffffff'} onClick={() => handleLoginGithub()}>
             <div>
@@ -84,6 +107,44 @@ export function Login() {
       </AuthContainer>
     </>
   );
+}
+
+function handleLoginGoogle(navigate) {
+  console.log('Google Auth');
+
+  signInWithPopup(auth, provider)
+    .then((data) => {
+      const user = data.user;
+
+      const body = {
+        name: user.displayName,
+        email: user.email,
+        image: user.photoURL,
+      };
+
+      navigate('/OAuth', { state: body });
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+  // getRedirectResult(auth)
+  //   .then((result) => {
+  //     // This gives you a Google Access Token. You can use it to access Google APIs.
+  //     const credential = GoogleAuthProvider.credentialFromResult(result);
+  //     const token = credential.accessToken;
+
+  //     // The signed-in user info.
+  //     const user = result.user;
+
+  //     console.log(result);
+  //   })
+  //   .catch((error) => {
+  //     // Handle Errors here.
+  //     console.log(error);
+  //     // The AuthCredential type that was used.
+  //     const credential = GoogleAuthProvider.credentialFromError(error);
+  //     // ...
+  //   });
 }
 
 function handleLoginGithub() {

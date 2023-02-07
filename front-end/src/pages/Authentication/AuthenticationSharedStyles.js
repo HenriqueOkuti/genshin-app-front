@@ -40,6 +40,7 @@ export const Subtitle = styled.div`
 
 export const OAuthContainer = styled.div`
   width: 100%;
+  font-family: 'Inter', arial;
 
   > div {
     margin: 25px 0 0 0 !important;
@@ -70,7 +71,7 @@ export const OAuthButton = styled.div`
     background-color: ${(props) => props.color};
     color: ${(props) => props.fcolor};
     border-radius: 10px;
-    font-size: 21px;
+    font-size: 18px;
   }
 `;
 
