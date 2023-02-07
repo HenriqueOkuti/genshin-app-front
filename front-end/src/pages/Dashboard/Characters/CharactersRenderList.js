@@ -23,7 +23,6 @@ export function InitialRenderImages({ arrayChars, elements, setPageState, setCha
         key={index}
         colors={colorsDict[char.elementId]}
         onClick={() => {
-          //console.log('mod char: ', char);
           setCharToMod(char);
         }}
       >
@@ -63,7 +62,6 @@ export function AddRenderImages({ arrayChars, elements, setPageState, setCharToA
         key={index}
         colors={colorsDict[char.elementId]}
         onClick={() => {
-          //console.log('mod char: ', char);
           setCharToAdd(char);
         }}
       >

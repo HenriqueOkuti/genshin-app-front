@@ -1,6 +1,6 @@
 import { useNavigate, useLocation } from 'react-router-dom';
 import { AuthContainer, Background, Logo } from '../../layouts/layouts';
-import { OAuthLoader, Subtitle, Title } from './AuthenticationSharedStyles';
+import { OAuthLoader } from './AuthenticationSharedStyles';
 import qs from 'query-string';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
@@ -57,7 +57,6 @@ export function OAuth() {
     }
   }, []);
 
-  //Handles width of screen
   useEffect(() => {
     useWindowWidth(setWindowWidth);
   }, []);
@@ -85,8 +84,6 @@ async function fetchUserInfo(code, setUpdate, update) {
   const response = await axios.post('http://localhost:4000/auth/github', { githubCode: code }, {}).catch((err) => {
     return err.toJSON();
   });
-
-  //console.log(response);
 
   if (response.message) {
     return false;

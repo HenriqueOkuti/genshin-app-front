@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useTheme } from '../../../hooks/useTheme';
 import useToken from '../../../hooks/useToken';
 import { useWindowWidth } from '../../../hooks/useWindowWidth';
 import { TasksAddMain, TasksAddMobile } from './TasksAdd';
@@ -29,12 +28,10 @@ export function TasksManager() {
       localStorage.removeItem('task');
     }
 
-    //Handles width of screen
     useWindowWidth(setWindowWidth);
   }, []);
 
   useEffect(async () => {
-    //fetches user tasks
     if (!token) {
       setToken(localStorage.getItem('token'));
     }
@@ -68,9 +65,7 @@ export function TasksManager() {
   }, [taskToMod]);
 
   if (windowWidth > 700) {
-    //Render main version
     if (pageState === 'initial') {
-      //Render all user tasks
       return (
         <TasksInitialMain
           filteredTasks={filteredTasks}
@@ -87,11 +82,9 @@ export function TasksManager() {
       );
     }
     if (pageState === 'add') {
-      //Render all user tasks
       return <TasksAddMain token={token} setPageState={setPageState} windowWidth={windowWidth} />;
     }
     if (pageState === 'edit') {
-      //Render all user tasks
       return (
         <TasksEditMain
           token={token}
@@ -111,9 +104,7 @@ export function TasksManager() {
       );
     }
   } else {
-    //Render mobile version
     if (pageState === 'initial') {
-      //Render all user tasks
       return (
         <TasksInitialMobile
           filteredTasks={filteredTasks}
@@ -130,11 +121,9 @@ export function TasksManager() {
       );
     }
     if (pageState === 'add') {
-      //Render all user tasks
       return <TasksAddMobile setPageState={setPageState} />;
     }
     if (pageState === 'edit') {
-      //Render all user tasks
       return <TasksEditMobile taskToMod={taskToMod} setTaskToMod={setTaskToMod} setPageState={setPageState} />;
     } else {
       return (

@@ -22,11 +22,9 @@ import {
 import { loginUser } from '../../services/Authentication/authenticationAPI';
 import { useWindowWidth } from '../../hooks/useWindowWidth';
 import { toast } from 'react-toastify';
-import GitHubLogo from '../../assets/images/login/GitHub_Logo_White.png';
 import GitHubMark from '../../assets/images/login/github-mark-white.svg';
 import GoogleLogo from '../../assets/images/login/Google__G__Logo.svg';
-import jwt_decode from 'jwt-decode';
-import { getAuth, getRedirectResult, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 
 import { initializeApp } from 'firebase/app';
 
@@ -61,7 +59,6 @@ export function Login() {
     navigate('/dashboard/home');
   }
 
-  //Handles width of screen
   useEffect(() => {
     useWindowWidth(setWindowWidth);
   }, []);
@@ -127,24 +124,6 @@ function handleLoginGoogle(navigate) {
     .catch((err) => {
       console.error(err);
     });
-  // getRedirectResult(auth)
-  //   .then((result) => {
-  //     // This gives you a Google Access Token. You can use it to access Google APIs.
-  //     const credential = GoogleAuthProvider.credentialFromResult(result);
-  //     const token = credential.accessToken;
-
-  //     // The signed-in user info.
-  //     const user = result.user;
-
-  //     console.log(result);
-  //   })
-  //   .catch((error) => {
-  //     // Handle Errors here.
-  //     console.log(error);
-  //     // The AuthCredential type that was used.
-  //     const credential = GoogleAuthProvider.credentialFromError(error);
-  //     // ...
-  //   });
 }
 
 function handleLoginGithub() {

@@ -94,8 +94,6 @@ export const TasksList = styled.div`
   width: 100%;
   overflow-y: scroll;
 
-  //background-color: blue;
-
   > img {
   }
 `;
@@ -313,7 +311,6 @@ export const ExcludeItemContainer = styled.div`
   justify-content: center;
 
   width: 20%;
-  //height: 100%;
 
   div {
     font-family: 'Inter', arial;
@@ -348,7 +345,6 @@ export const AddItemButtom = styled.div`
     height: 60px;
     width: 40px;
     border-radius: 10px;
-    //background-color: ${(props) => props.theme.hex4};
   }
 `;
 

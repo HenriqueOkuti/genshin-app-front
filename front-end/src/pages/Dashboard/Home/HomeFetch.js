@@ -1,8 +1,7 @@
 import dayjs from 'dayjs';
-import { getAllItems, getUserTasks, postNewTask } from '../../../services/services';
+import { getUserTasks } from '../../../services/services';
 
 export async function fetchUserTasksToday(userToken) {
-  let allTasks = [];
   let token = userToken;
 
   if (!userToken) {
@@ -46,8 +45,6 @@ export async function fetchUserTasksToday(userToken) {
 }
 
 function AddFullListOfDays(task) {
-  //console.log(task);
-
   const daysDict = {
     monday: ['Monday', 'Thursday', 'Sunday'],
     tuesday: ['Tuesday', 'Friday', 'Sunday'],
