@@ -24,6 +24,8 @@ export function RenderHomeTasks({ task, windowWidth }) {
     <>
       <TaskContainer
         onClick={() => {
+          localStorage.setItem('task', JSON.stringify(task));
+          navigate('/dashboard/tasks');
           //redirect to this task
           //store taskId on localStorage and navigate to /tasks
         }}
