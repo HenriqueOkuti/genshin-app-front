@@ -168,5 +168,6 @@ async function alterTheme(theme, modifyTheme, setTheme, setUpdate, update) {
 
 function logout(navigate) {
   localStorage.removeItem('token');
+  localStorage.removeItem('items');
   navigate('/login');
 }

@@ -22,17 +22,12 @@ export async function fetchUserTasksToday(userToken) {
       6: 'Saturday',
     };
 
-    //console.log('filtering for today');
-    console.log(response.tasks);
     const fixedTasks = [];
     for (let i = 0; i < response.tasks.length; i++) {
       const daysInfo = AddFullListOfDays(response.tasks[i]);
 
       const today = daysDictionary[dayjs().day()];
 
-      //console.log(today);
-      //console.log(daysInfo[0]);
-      //console.log(daysInfo[0].includes(today) || daysInfo[0].includes('Any'));
       if (daysInfo[0].includes(today) || daysInfo[0].includes('Any')) {
         fixedTasks.push({
           ...response.tasks[i],

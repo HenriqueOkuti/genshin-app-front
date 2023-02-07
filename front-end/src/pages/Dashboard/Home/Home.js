@@ -9,6 +9,7 @@ import {
   EmptyTasksContainer,
   HomeHeader,
   HomeHeaderButtons,
+  TasksContainer,
 } from './HomeStyles';
 import { AiOutlineMenu } from 'react-icons/ai';
 import { RenderHomeTasks } from './HomeTasks';
@@ -20,6 +21,16 @@ export function HomeManager() {
   const [token, setToken] = useState(tokenHook);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [dailyTasks, setDailyTasks] = useState([]);
+  const [filteredTasks, setFilteredTasks] = useState([]);
+  const [filterType, setFilterType] = useState({ name: 'null' });
+
+  const filterTypeDictionary = {
+    null: '',
+    az: '(A-Z)',
+    za: '(Z-A)',
+    created: '(Created at)',
+    updated: '(Updated at)',
+  };
 
   useEffect(async () => {
     let tokenAux;
@@ -29,10 +40,12 @@ export function HomeManager() {
     }
 
     const response = await fetchUserTasksToday(token);
-    console.log(response);
 
     setDailyTasks([]);
     setDailyTasks([...response]);
+
+    setFilteredTasks([]);
+    setFilteredTasks([...response]);
   }, []);
 
   useEffect(() => {
@@ -40,20 +53,38 @@ export function HomeManager() {
     useWindowWidth(setWindowWidth);
   }, []);
 
+  //console.log(filterType.name);
+  //''
+
   if (windowWidth > 700) {
     //Render main version
     return (
       <>
         <AuxContainer>
           <HomeHeader>
-            <div>What can you do today?</div>
+            <div>What can you do today? {filterTypeDictionary[filterType.name]}</div>
             <HomeHeaderButtons>
               <div>
-                <FilterMenuHome dailyTasks={dailyTasks} setDailyTasks={setDailyTasks} />
+                <FilterMenuHome
+                  filterType={filterType}
+                  setFilterType={setFilterType}
+                  dailyTasks={dailyTasks}
+                  setDailyTasks={setDailyTasks}
+                  setFilteredTasks={setFilteredTasks}
+                />
               </div>
             </HomeHeaderButtons>
           </HomeHeader>
-          {dailyTasks[0] ? <RenderDailyTasks tasks={dailyTasks} windowWidth={windowWidth} /> : <EmptyTasks />}
+          <TasksContainer>
+            {dailyTasks[0] ? (
+              <RenderDailyTasks
+                tasks={filterType.name === 'null' ? dailyTasks : filteredTasks}
+                windowWidth={windowWidth}
+              />
+            ) : (
+              <EmptyTasks />
+            )}
+          </TasksContainer>
         </AuxContainer>
       </>
     );
@@ -63,43 +94,96 @@ export function HomeManager() {
       <>
         <AuxContainer>
           <HomeHeader>
-            <div>What can you do today?</div>
+            <div>What can you do today? {filterTypeDictionary[filterType.name]}</div>
             <HomeHeaderButtons>
               <div>
-                <FilterMenuHome dailyTasks={dailyTasks} setDailyTasks={setDailyTasks} />
+                <FilterMenuHome
+                  filterType={filterType}
+                  setFilterType={setFilterType}
+                  dailyTasks={dailyTasks}
+                  setDailyTasks={setDailyTasks}
+                  setFilteredTasks={setFilteredTasks}
+                />
               </div>
             </HomeHeaderButtons>
           </HomeHeader>
-          {dailyTasks[0] ? <RenderDailyTasks tasks={dailyTasks} windowWidth={windowWidth} /> : <EmptyTasks />}
+          <TasksContainer>
+            {dailyTasks[0] ? (
+              <RenderDailyTasks
+                tasks={filterType.name === 'null' ? dailyTasks : filteredTasks}
+                windowWidth={windowWidth}
+              />
+            ) : (
+              <EmptyTasks />
+            )}
+          </TasksContainer>
         </AuxContainer>
       </>
     );
   }
 }
 
-export function FilterMenuHome({ dailyTasks, setDailyTasks }) {
+export function FilterMenuHome({ filterType, setFilterType, dailyTasks, setDailyTasks, setFilteredTasks }) {
   const [open, setOpen] = useState(false);
   const wrapperRef = useRef(null);
 
-  console.log(dailyTasks);
+  for (let i = 0; i < dailyTasks.length; i++) {
+    const creation = dailyTasks[0]?.createdAt ? dailyTasks[0].createdAt : false;
+    const updated = dailyTasks[0]?.updatedAt ? dailyTasks[0].updatedAt : false;
+
+    if (creation && updated) {
+      dailyTasks[i].createdNumber = Date.parse(JSON.parse(creation));
+      dailyTasks[i].updatedNumber = Date.parse(JSON.parse(updated));
+    }
+  }
 
   const filterOptions = [
     {
       name: 'A-Z',
       function: () => {
-        console.log('filter');
+        if (filterType.name === 'az') {
+          setFilteredTasks([]);
+          setFilterType({ name: 'null' });
+        } else {
+          setFilteredTasks([...dailyTasks].sort((a, b) => a.name.localeCompare(b.name)));
+          setFilterType({ name: 'az' });
+        }
       },
     },
     {
       name: 'Z-A',
       function: () => {
-        console.log('filter');
+        if (filterType.name === 'za') {
+          setFilteredTasks([]);
+          setFilterType({ name: 'null' });
+        } else {
+          setFilteredTasks([...dailyTasks].sort((a, b) => b.name.localeCompare(a.name)));
+          setFilterType({ name: 'za' });
+        }
       },
     },
     {
-      name: 'Filter option 3',
+      name: 'Creation',
       function: () => {
-        console.log('filter');
+        if (filterType.name === 'created') {
+          setFilteredTasks([]);
+          setFilterType({ name: 'null' });
+        } else {
+          setFilteredTasks([...dailyTasks].sort((a, b) => a.createdNumber - b.createdNumber));
+          setFilterType({ name: 'created' });
+        }
+      },
+    },
+    {
+      name: 'Update',
+      function: () => {
+        if (filterType.name === 'updated') {
+          setFilteredTasks([]);
+          setFilterType({ name: 'null' });
+        } else {
+          setFilteredTasks([...dailyTasks].sort((a, b) => a.updatedNumber - b.updatedNumber));
+          setFilterType({ name: 'updated' });
+        }
       },
     },
   ];

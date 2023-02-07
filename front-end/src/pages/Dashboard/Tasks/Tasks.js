@@ -4,11 +4,10 @@ import useToken from '../../../hooks/useToken';
 import { useWindowWidth } from '../../../hooks/useWindowWidth';
 import { TasksAddMain, TasksAddMobile } from './TasksAdd';
 import { TasksEditMain, TasksEditMobile } from './TasksEdit';
-import { fetchItems, fetchUserTasks, UseMockedTasks } from './TasksFetch';
+import { fetchItems, fetchUserTasks } from './TasksFetch';
 import { TasksInitialMain, TasksInitialMobile } from './TasksInitial';
 
 export function TasksManager() {
-  const userTheme = useTheme();
   const tokenHook = useToken();
   const [token, setToken] = useState(tokenHook);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -19,6 +18,20 @@ export function TasksManager() {
   const [taskToMod, setTaskToMod] = useState(null);
 
   const [fetchAgain, setFetchAgain] = useState(false);
+
+  const [filteredTasks, setFilteredTasks] = useState([]);
+  const [filterType, setFilterType] = useState({ name: 'null' });
+
+  useEffect(() => {
+    const taskLocalStorage = JSON.parse(localStorage.getItem('task'));
+    if (taskLocalStorage) {
+      setTaskToMod(taskLocalStorage);
+      localStorage.removeItem('task');
+    }
+
+    //Handles width of screen
+    useWindowWidth(setWindowWidth);
+  }, []);
 
   useEffect(async () => {
     //fetches user tasks
@@ -31,29 +44,28 @@ export function TasksManager() {
     }
 
     const response = await fetchUserTasks(token);
-    //console.log(userTasks);
     setUserTasks([]);
     setUserTasks([...response]);
-    //console.log(userTasks);
     if (pageState === 'loading') {
       setPageState('initial');
+    }
+
+    if (taskToMod && (pageState === 'loading' || pageState === 'initial')) {
+      setPageState('edit-loading');
+    }
+
+    if (taskToMod && userTasks[0]) {
+      setPageState('edit');
     }
   }, [pageState, taskToMod, fetchAgain]);
 
   useEffect(() => {
-    //Handles width of screen
-    useWindowWidth(setWindowWidth);
-  }, []);
-
-  useEffect(() => {
-    if (taskToMod) {
+    if (taskToMod && userTasks[0]) {
       setPageState('edit');
     } else {
       setFetchAgain(!fetchAgain);
     }
   }, [taskToMod]);
-
-  //console.log(pageState);
 
   if (windowWidth > 700) {
     //Render main version
@@ -61,12 +73,16 @@ export function TasksManager() {
       //Render all user tasks
       return (
         <TasksInitialMain
+          filteredTasks={filteredTasks}
           userTasks={userTasks}
           setTaskToMod={setTaskToMod}
           setPageState={setPageState}
           windowWidth={windowWidth}
           setFetchAgain={setFetchAgain}
           fetchAgain={fetchAgain}
+          filterType={filterType}
+          setFilterType={setFilterType}
+          setFilteredTasks={setFilteredTasks}
         />
       );
     }
@@ -90,7 +106,7 @@ export function TasksManager() {
     } else {
       return (
         <>
-          <div>Something went wrong</div>
+          <div>Loading content</div>
         </>
       );
     }
@@ -100,10 +116,16 @@ export function TasksManager() {
       //Render all user tasks
       return (
         <TasksInitialMobile
+          filteredTasks={filteredTasks}
           userTasks={userTasks}
           setTaskToMod={setTaskToMod}
           setPageState={setPageState}
           windowWidth={windowWidth}
+          setFetchAgain={setFetchAgain}
+          fetchAgain={fetchAgain}
+          filterType={filterType}
+          setFilterType={setFilterType}
+          setFilteredTasks={setFilteredTasks}
         />
       );
     }
@@ -114,6 +136,12 @@ export function TasksManager() {
     if (pageState === 'edit') {
       //Render all user tasks
       return <TasksEditMobile taskToMod={taskToMod} setTaskToMod={setTaskToMod} setPageState={setPageState} />;
+    } else {
+      return (
+        <>
+          <div>Loading contentg</div>
+        </>
+      );
     }
   }
 }

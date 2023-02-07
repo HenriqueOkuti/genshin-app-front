@@ -21,6 +21,7 @@ export function InitialRenderImages({ arrayChars, elements, setPageState, setCha
     return (
       <CharacterCard
         key={index}
+        colors={colorsDict[char.elementId]}
         onClick={() => {
           //console.log('mod char: ', char);
           setCharToMod(char);
@@ -60,6 +61,7 @@ export function AddRenderImages({ arrayChars, elements, setPageState, setCharToA
     return (
       <CharacterCard
         key={index}
+        colors={colorsDict[char.elementId]}
         onClick={() => {
           //console.log('mod char: ', char);
           setCharToAdd(char);

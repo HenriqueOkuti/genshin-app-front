@@ -88,12 +88,15 @@ export const CharacterCard = styled.div`
   justify-content: center;
   flex-direction: column;
   font-family: Inter, arial;
+  font-size: 18px;
 
   padding: 10px;
 
-  border: 1px solid black;
+  //border: 1px solid black;
   border-radius: 5px;
   width: 110px;
+
+  background-color: ${(props) => props.colors};
 `;
 
 export const CardName = styled.div`
@@ -116,7 +119,7 @@ export const CardName = styled.div`
 export const CardImage = styled.div`
   img {
     background-color: ${(props) => (props.colors ? props.colors : '#d95538')};
-    border-radius: 100%;
+    border-radius: 5px 5px 0 0;
   }
 `;
 
@@ -125,6 +128,10 @@ export const CardInfo = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+
+  div {
+    margin: 5px 0 0px 0;
+  }
 `;
 
 export const DropdownAnchor = styled.div`
