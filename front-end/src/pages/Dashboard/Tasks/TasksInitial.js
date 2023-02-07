@@ -231,8 +231,6 @@ export function FilterMenuInitial({ filterType, setFilterType, userTasks, filter
       </div>
     </>
   );
-
-  //
 }
 
 export function FilterMenuDropdown({ filterOptions }) {

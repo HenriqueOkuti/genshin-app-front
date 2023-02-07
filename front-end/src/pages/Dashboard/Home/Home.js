@@ -49,15 +49,10 @@ export function HomeManager() {
   }, []);
 
   useEffect(() => {
-    //Handles width of screen
     useWindowWidth(setWindowWidth);
   }, []);
 
-  //console.log(filterType.name);
-  //''
-
   if (windowWidth > 700) {
-    //Render main version
     return (
       <>
         <AuxContainer>
@@ -89,7 +84,6 @@ export function HomeManager() {
       </>
     );
   } else {
-    //Render mobile version
     return (
       <>
         <AuxContainer>
@@ -230,8 +224,6 @@ export function FilterMenuHome({ filterType, setFilterType, dailyTasks, setDaily
       </div>
     </>
   );
-
-  //
 }
 
 export function FilterMenuDropdown({ filterOptions }) {
@@ -247,7 +239,6 @@ export function FilterMenuDropdown({ filterOptions }) {
             <div
               key={index}
               onClick={() => {
-                //handleOpen();
                 filter.function();
               }}
             >

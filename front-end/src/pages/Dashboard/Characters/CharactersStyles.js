@@ -66,7 +66,6 @@ export const CharactersList = styled.div`
   align-items: self-start;
 
   gap: 5px;
-  //margin: 15px 0 0 0;
   height: 90%;
   overflow-y: scroll;
 
@@ -92,7 +91,6 @@ export const CharacterCard = styled.div`
 
   padding: 10px;
 
-  //border: 1px solid black;
   border-radius: 5px;
   width: 110px;
 
@@ -265,7 +263,6 @@ export const TalentInfo = styled.div`
   }
 
   div {
-    //width: calc(50% - 60px);
     margin-left: 15px;
   }
 `;

@@ -8,13 +8,10 @@ import { Background } from './layouts/layouts';
 import { OAuth } from './pages/Authentication/OAuth';
 import { BackpackManager } from './pages/Dashboard/Backpack/Backpack';
 import { CharactersManager } from './pages/Dashboard/Characters/Characters';
-import { Home, HomeManager } from './pages/Dashboard/Home/Home';
+import { HomeManager } from './pages/Dashboard/Home/Home';
 import { ProfileManager } from './pages/Dashboard/Profile/Profile';
 import { TasksManager } from './pages/Dashboard/Tasks/Tasks';
 import { Dashboard, LandingPage, Login, SignUp } from './pages/pages';
-import { QueryClient, QueryClientProvider, useQuery } from 'react-query';
-
-const queryClient = new QueryClient();
 
 export default function App() {
   const token = localStorage.getItem('token');
@@ -49,32 +46,30 @@ export default function App() {
         <Background colors={userTheme.palette}>
           <ThemeContext.Provider value={{ userTheme, setUserTheme }}>
             <UserContext.Provider value={{ userToken, setUserToken }}>
-              <QueryClientProvider client={queryClient}>
-                <Router>
-                  <Routes>
-                    <Route path="/" element={<LandingPage />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/signup" element={<SignUp />} />
-                    <Route path="/OAuth" element={<OAuth />} />
+              <Router>
+                <Routes>
+                  <Route path="/" element={<LandingPage />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/signup" element={<SignUp />} />
+                  <Route path="/OAuth" element={<OAuth />} />
 
-                    <Route
-                      path="/dashboard"
-                      element={
-                        <PrivateRoute>
-                          <Dashboard />
-                        </PrivateRoute>
-                      }
-                    >
-                      <Route path="profile" element={<ProfileManager />} />
-                      <Route path="home" element={<HomeManager />} />
-                      <Route path="characters" element={<CharactersManager />} />
-                      <Route path="backpack" element={<BackpackManager />} />
-                      <Route path="tasks" element={<TasksManager />} />
-                      <Route index path="*" element={<Navigate to="/dashboard/home" />} />
-                    </Route>
-                  </Routes>
-                </Router>
-              </QueryClientProvider>
+                  <Route
+                    path="/dashboard"
+                    element={
+                      <PrivateRoute>
+                        <Dashboard />
+                      </PrivateRoute>
+                    }
+                  >
+                    <Route path="profile" element={<ProfileManager />} />
+                    <Route path="home" element={<HomeManager />} />
+                    <Route path="characters" element={<CharactersManager />} />
+                    <Route path="backpack" element={<BackpackManager />} />
+                    <Route path="tasks" element={<TasksManager />} />
+                    <Route index path="*" element={<Navigate to="/dashboard/home" />} />
+                  </Route>
+                </Routes>
+              </Router>
             </UserContext.Provider>
           </ThemeContext.Provider>
         </Background>

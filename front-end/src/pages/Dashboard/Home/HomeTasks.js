@@ -26,8 +26,6 @@ export function RenderHomeTasks({ task, windowWidth }) {
         onClick={() => {
           localStorage.setItem('task', JSON.stringify(task));
           navigate('/dashboard/tasks');
-          //redirect to this task
-          //store taskId on localStorage and navigate to /tasks
         }}
         palette={userTheme.palette}
       >

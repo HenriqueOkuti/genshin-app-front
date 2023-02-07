@@ -33,9 +33,6 @@ export function TasksEditMain({
   const [validImage, setValidImage] = useState('original');
   const [validData, setValidData] = useState(false);
 
-  //console.log(newTaskInfo);
-  //console.log(windowWidth);
-
   useEffect(async () => {
     if (newImage === '') {
       setValidImage('original');
@@ -63,7 +60,6 @@ export function TasksEditMain({
   }, [newImage]);
 
   useEffect(() => {
-    //verify if data is valid
     setValidData(verifyIfDataIsValid(newTaskInfo));
   }, [newTaskInfo]);
 
@@ -215,8 +211,6 @@ async function handleUpdate(token, oldTask, newTask) {
     return true;
   }
   return false;
-  //
-  //
 }
 
 async function verifyURL(url) {

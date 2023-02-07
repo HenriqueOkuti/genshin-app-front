@@ -34,9 +34,6 @@ function RenderTaskItem({ item, index, newTaskInfo, setNewTaskInfo }) {
   const [userTheme, setUserTheme] = [theme, setTheme];
   const [quantity, setQuantity] = useState(item.quantity);
 
-  //console.log(userTheme);
-  //console.log(item);
-
   const rarityDict = {
     1: '#8B949F',
     2: '#82CD47',
@@ -83,11 +80,8 @@ function RenderTaskItem({ item, index, newTaskInfo, setNewTaskInfo }) {
 }
 
 function handleDeleteItem(item, index, newTaskInfo, setNewTaskInfo) {
-  //console.log('deleting item');
   toast('Deleting item');
   const itemList = [...newTaskInfo.items];
   itemList.splice(index, 1);
   setNewTaskInfo({ ...newTaskInfo, items: [...itemList] });
-
-  //possible easier if async delete
 }
