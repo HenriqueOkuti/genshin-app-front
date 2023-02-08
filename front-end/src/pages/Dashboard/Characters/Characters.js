@@ -152,7 +152,16 @@ export function CharactersManager() {
     }
   } else {
     if (pageState === 'initial') {
-      return <CharInitialMobile elements={elements} weapons={weapons} />;
+      return (
+        <CharInitialMobile
+          elements={elements}
+          weapons={weapons}
+          setPageState={setPageState}
+          windowWidth={windowWidth}
+          userChars={userCharacters}
+          setCharToMod={setCharacterToEdit}
+        />
+      );
     }
     if (pageState === 'add') {
       return <CharAddMobile />;

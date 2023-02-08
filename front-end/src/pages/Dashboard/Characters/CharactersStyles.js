@@ -61,13 +61,21 @@ export const SearchBarContainer = styled.div`
 export const CharactersList = styled.div`
   display: grid;
 
-  grid-template-columns: repeat(${(props) => (props.width ? Math.floor(props.width / 275) : 3)}, 1fr);
+  grid-template-columns: repeat(${(props) => (props.width ? Math.floor(props.width / 300) : 3)}, 1fr);
+
+  @media (max-width: 700px) {
+    grid-template-columns: repeat(${(props) => (props.width ? Math.floor(props.width / 205) : 3)}, 1fr);
+  }
+
   justify-items: center;
   align-items: self-start;
 
   gap: 5px;
   height: 90%;
   overflow-y: scroll;
+
+  border: 1px solid #000000;
+  border-radius: 15px;
 
   > img {
   }
@@ -92,7 +100,7 @@ export const CharacterCard = styled.div`
   padding: 10px;
 
   border-radius: 5px;
-  width: 110px;
+  width: 120px;
 
   background-color: ${(props) => props.colors};
 `;
