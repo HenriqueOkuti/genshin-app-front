@@ -81,7 +81,7 @@ export function OAuth() {
 }
 
 async function fetchUserInfo(code, setUpdate, update) {
-  const response = await axios.post('http://localhost:4000/auth/github', { githubCode: code }, {}).catch((err) => {
+  const response = await axios.post('http://54.90.19.105:80/auth/github', { githubCode: code }, {}).catch((err) => {
     return err.toJSON();
   });
 
