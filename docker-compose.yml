@@ -1,7 +1,7 @@
 version: "3"
 services:
   app_react:
-    build: ./front-end
+    build: ./frontend
     container_name: app_react
     volumes:
       - build_react:/var/www/html
@@ -10,7 +10,7 @@ services:
     build: ./nginx
     container_name: nginx
     ports:
-      - 8555:8555
+      - 80:80
     volumes:
       - build_react:/var/www/html
     depends_on:
