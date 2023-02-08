@@ -42,6 +42,8 @@ function RenderTaskItem({ item, index, newTaskInfo, setNewTaskInfo }) {
     5: '#F6D860',
   };
 
+  console.log(item.quantity);
+
   return (
     <ItemContainer colors={userTheme.palette}>
       <ItemImage colors={rarityDict[item.itemInfo.rarity]}>
@@ -59,11 +61,14 @@ function RenderTaskItem({ item, index, newTaskInfo, setNewTaskInfo }) {
                 const newItems = [...newTaskInfo.items];
                 newItems[index] = newItem;
                 setNewTaskInfo({ ...newTaskInfo, items: newItems });
-              } else {
+              } else if (value > 9999) {
                 toast('Insert a correct value (max: 9999)');
+              } else if (value < 0 && typeof value === 'number') {
+                toast('Insert a correct value (min: 0)');
               }
             }}
-            defaultValue={quantity}
+            value={item.quantity}
+            defaultValue={item.quantity}
             type="number"
             min="1"
             max="9999"
@@ -81,7 +86,10 @@ function RenderTaskItem({ item, index, newTaskInfo, setNewTaskInfo }) {
 
 function handleDeleteItem(item, index, newTaskInfo, setNewTaskInfo) {
   toast('Deleting item');
+
   const itemList = [...newTaskInfo.items];
+  console.log(itemList);
   itemList.splice(index, 1);
+  console.log(itemList);
   setNewTaskInfo({ ...newTaskInfo, items: [...itemList] });
 }

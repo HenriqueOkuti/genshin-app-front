@@ -1,20 +1,18 @@
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useSetTheme, useTheme } from '../../../hooks/useTheme';
-import { TaskContainer, TaskDates, TaskDays, TaskImage, TaskInfoContainer, TaskTitle } from './TasksStyles';
+import { TaskContainer, TaskDates, TaskDays, TaskImage, TaskInfoContainer, TaskTitle } from '../Tasks/TasksStyles';
 
-export function RenderTasks({ task, setTaskToMod, setPageState, windowWidth }) {
+export function RenderHomeTasks({ task, windowWidth }) {
   const theme = useTheme();
   const setTheme = useSetTheme();
+  const navigate = useNavigate();
   const [userTheme, setUserTheme] = [theme, setTheme];
   const [daysText, setDaysText] = useState('Loading...');
 
   const createdAt = dayjs(JSON.parse(task.createdAt)).format('MM/DD/YY');
   const updatedAt = dayjs(JSON.parse(task.updatedAt)).format('MM/DD/YY');
-
-  useEffect(() => {
-    setDaysText(task.daysInfo.text);
-  }, []);
 
   const columns = windowWidth > 1130 ? '1fr 1fr' : '1fr';
 
@@ -22,8 +20,8 @@ export function RenderTasks({ task, setTaskToMod, setPageState, windowWidth }) {
     <>
       <TaskContainer
         onClick={() => {
-          setTaskToMod(task);
-          setPageState('edit');
+          localStorage.setItem('task', JSON.stringify(task));
+          navigate('/dashboard/tasks');
         }}
         palette={userTheme.palette}
       >
@@ -41,7 +39,7 @@ export function RenderTasks({ task, setTaskToMod, setPageState, windowWidth }) {
             </div>
           </TaskDates>
           <TaskDays>
-            <div>Days: {daysText}</div>
+            <div>Days: {task.daysInfo ? task.daysInfo.text : 'Loading...'}</div>
           </TaskDays>
         </TaskInfoContainer>
       </TaskContainer>

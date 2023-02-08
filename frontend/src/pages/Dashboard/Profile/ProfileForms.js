@@ -113,7 +113,6 @@ export function ProfileMain({ userData, updatedData, setUpdatedData }) {
               onChange={(e) => setImageURL(e.target.value)}
               fullWidth
               disabled={false}
-              key={userData.image}
               defaultValue={userData.image}
               id="outlined-required"
             />

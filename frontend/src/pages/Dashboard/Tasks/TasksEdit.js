@@ -105,10 +105,10 @@ export function TasksEditMain({
             </TaskInfoImage>
           </TaskEditInfoContainer>
           <RenderEditTaskItems
-            newTaskInfo={newTaskInfo}
-            setNewTaskInfo={setNewTaskInfo}
-            items={newTaskInfo.items}
-            taskId={newTaskInfo.id}
+            newTaskInfo={taskToMod}
+            setNewTaskInfo={setTaskToMod}
+            items={taskToMod.items}
+            taskId={taskToMod.id}
           />
           <EditButtonsContainer switchToColumn={alterButtomsToColumn}>
             <DeleteButton
@@ -178,8 +178,8 @@ async function handleDelete(token, task) {
 async function handleUpdate(token, oldTask, newTask) {
   const fixedItems = [];
   let taskId = 0;
-  for (let i = 0; i < newTask.items.length; i++) {
-    const item = newTask.items[i];
+  for (let i = 0; i < oldTask.items.length; i++) {
+    const item = oldTask.items[i];
     taskId = item.taskId;
 
     fixedItems.push({
@@ -189,19 +189,19 @@ async function handleUpdate(token, oldTask, newTask) {
       dungeonMat: item.dungeonMat,
       enemyMat: item.enemyMat,
       localSpecialty: item.localSpecialty,
-      taskId: newTask.id,
+      taskId: oldTask.id,
       itemId: item.itemId,
       quantity: item.quantity,
     });
   }
 
   const body = {
-    userId: newTask.userId,
-    name: newTask.name,
+    userId: oldTask.userId,
+    name: oldTask.name,
     taskId: taskId,
-    createdAt: JSON.parse(newTask.createdAt),
-    updatedAt: JSON.parse(newTask.updatedAt),
-    image: newTask.image,
+    createdAt: JSON.parse(oldTask.createdAt),
+    updatedAt: JSON.parse(oldTask.updatedAt),
+    image: oldTask.image,
     items: fixedItems,
   };
 
