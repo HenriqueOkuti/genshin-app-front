@@ -81,7 +81,8 @@ export function OAuth() {
 }
 
 async function fetchUserInfo(code, setUpdate, update) {
-  const response = await axios.post('http://localhost:4000/auth/github', { githubCode: code }, {}).catch((err) => {
+  const baseURL = process.env.REACT_APP_API_BASE_URL;
+  const response = await axios.post(`${baseURL}/auth/github`, { githubCode: code }, {}).catch((err) => {
     return err.toJSON();
   });
 
